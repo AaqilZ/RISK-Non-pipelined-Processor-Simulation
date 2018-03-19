@@ -14,30 +14,27 @@ $ make [configurationFileName]
 
 ### Input file format
 Configuration file must include:
-* program_input
-   About: string for name of input file containing MIPS assembly code
-   Ex:    program_input=Input.asm
-* memory_contents_input
-   About: string for name of input file containing contents of main memory at beginning of execution.
-* register_file_input
-   About: string for name of input file containing contents of register file at beginning of execution.
-* output_mode
-   Options: single_step <- if the user wishes to step through one instruction at a time
-            batch       <- if the user wishes to execute the simulation of the full program at once
-* debug_mode
-   About: whether to print debugging information
-   Options: true
-            false
-* print_memory_contents
-   About: whether to print current register file and memory
-   Options: true
-            false
-* write_to_file
-   About: whether to prtin all output for run to file specified by output_file
-   Options: true
-            false
-* output_file
-   About: output filename
+* __program_input__
+  - About: string for name of input file containing MIPS assembly code
+  - Ex:    program_input=Input.asm
+* __memory_contents_input__
+  - About: string for name of input file containing contents of main memory at beginning of execution.
+* __register_file_input__
+  - About: string for name of input file containing contents of register file at beginning of execution.
+* __output_mode__
+  - Options: single_step <- if the user wishes to step through one instruction at a time
+  - batch       <- if the user wishes to execute the simulation of the full program at once
+* __debug_mode__
+  - About: whether to print debugging information
+  - Options: [true, false]
+* __print_memory_contents__
+  - About: whether to print current register file and memory
+  - Options: [true, false]
+* __write_to_file__
+  - About: whether to prtin all output for run to file specified by output_file
+  - Options: [true, false]
+* __output_file__
+  - About: output filename
 
 
 ## Input Files
