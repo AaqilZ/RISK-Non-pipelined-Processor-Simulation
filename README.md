@@ -48,13 +48,21 @@ Configuration file must include:
    * Uppercase or Lowercase
 
 #### Program Input File
-Valid Commands: ADD, SUB, ADDI, SLT, LW, SW, BEQ, J
+Valid Commands: 
+* ADD
+* SUB
+* ADDI
+* SLT
+* LW
+* SW
+* BEQ
+* J
 
 One instruction per line.
 May assume this file is formatted correctly; no more than 100 lines
 
 ##### Branch and Jump Instructions
-* will not havle labels
+* will not have labels
 * will have hexadecimal strings (preceeded by 0x)
    * can be either positive or negative (twos comp)
 
@@ -117,3 +125,53 @@ Expected Control Signals:
 * ALUControl -> main ALU (4 digits)
 
 __ALL OUTPUT MUST BE IN HEX__ (with leading 0x)
+
+## Objects to Include
+
+* Program Counter
+* Instruction Memory
+  * Hashmap of <address:Instruction>
+* Register File
+  * Read and Write Registers and data
+
+* Data Memory
+* 3 ALUs (numbered 1 through 3)
+* 5 Multiplexors (numbered 1 through 5)
+* 2 "shift left 2" units (numbered 1 and 2)
+* a main control unit
+* an ALU control unit
+* a sign extend unit
+
+### Objects in Design
+
+* __Instruction Object__
+  * op rs rt rd immediate
+  * 
+* __Instruction Memory__
+  * Hashmap of <address:Instruction> owned by something else; not an actual object
+* __Data Memory__
+  * Hashmap of <address:word> owned by something else; not an actual object
+* __Register Data__
+  * array that stores the current state of the registers; owned by something else; not an object
+* __Program Counter__
+  * store currentAddress
+  * has a getter and a setter
+  * increment PC + 4 no matter what
+  * jump instructions
+    * bit shift immediate left 2
+    * send PC + 4 to multiplexor, then concatonate left 4 bits of PC with bit shifted immediate value (28 bits)
+* Processor
+  * Owns above hashmaps; program counter; other objects
+* 
+
+### Steps:
+1. Parse Input Files
+   1. Read MIPS assembly file
+      * Each line should be converted into an Instruction object and added to the Instruction Memory hashmap
+   2. Read Memory Input file
+      * Each line should be read and parsed
+        * [ ] split into address and word value
+        * [ ] added to Data Memory hashmap
+2. Run instructions in order according to value in the PC
+   1. Jump Instructions:
+      * 
