@@ -149,7 +149,7 @@ __ALL OUTPUT MUST BE IN HEX__ (with leading 0x)
   * 
 * __Instruction Memory__
   * Hashmap of <address:Instruction> owned by something else; not an actual object
-* __Data Memory__
+* __Memory__
   * Hashmap of <address:word> owned by something else; not an actual object
 * __Register Data__
   * array that stores the current state of the registers; owned by something else; not an object
@@ -160,9 +160,12 @@ __ALL OUTPUT MUST BE IN HEX__ (with leading 0x)
   * jump instructions
     * bit shift immediate left 2
     * send PC + 4 to multiplexor, then concatonate left 4 bits of PC with bit shifted immediate value (28 bits)
-* Processor
+* __Processor__
   * Owns above hashmaps; program counter; other objects
-* 
+* __Control Unit__
+  * owns all of the control signals
+  * has getters and setters for all control lines
+  * ability to output all control signals in a clean format at once
 
 ### Steps:
 1. Parse Input Files
@@ -171,7 +174,7 @@ __ALL OUTPUT MUST BE IN HEX__ (with leading 0x)
    2. Read Memory Input file
       * Each line should be read and parsed
         * [ ] split into address and word value
-        * [ ] added to Data Memory hashmap
+        * [ ] added to Memory hashmap
 2. Run instructions in order according to value in the PC
    1. Jump Instructions:
       * 
