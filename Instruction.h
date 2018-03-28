@@ -20,10 +20,8 @@ class Instruction {
   public:
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Instruction constructor
-    ///
     /// @details This function should take a string of MIPS assembly, parse it into relevant
     /// parts and create the instruction object to be added to the InstructionData hashmap 
-    ///
     /// @param inst String of assembly code to be parsed
     //////////////////////////////////////////////////////////////////////////////////////
     Instruction(std::string inst);
