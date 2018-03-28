@@ -9,7 +9,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Processor class
-/// @detail Processor should be able to print the state of all objects and should own objects to complete functionality
+/// @details Processor should be able to print the state of all objects and should own objects to complete functionality
 //////////////////////////////////////////////////////////////////////////////////////////
 class Processor : Unit {
 

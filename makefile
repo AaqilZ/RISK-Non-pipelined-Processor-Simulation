@@ -1,5 +1,5 @@
 EXECS = Processor
-OBJS = Unit.o ProgramCounter.o Instruction.o RegisterFile.o Control.o Parser.o Utilities.o Multiplexor.o ALU.o Processor.o main.o
+OBJS = Unit.o OperationUnit.o ProgramCounter.o Instruction.o RegisterFile.o Control.o Parser.o Utilities.o Multiplexor.o ALU.o Processor.o main.o
 
 CC = g++
 CCFLAGS = -std=c++11 -Wall -Wno-deprecated -Werror=return-type -g

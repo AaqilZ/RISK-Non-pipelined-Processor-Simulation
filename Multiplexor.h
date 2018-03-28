@@ -3,25 +3,20 @@
 
 #include <string>
 
-#include "Unit.h"
+#include "OperationUnit.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Multiplexor class
 //////////////////////////////////////////////////////////////////////////////////////////
 
-class Multiplexor : Unit {
-  private:
-    int unitNum = -1;
-    std::string opt1;
-    std::string opt2;
-    bool control = false;
+class Multiplexor : public OperationUnit {
   public:
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Constructor for Multiplexor class
     ///
-    /// @param number for this multiplexor instance (valid options 1-5)
+    /// @param num for this multiplexor instance (valid options 1-5)
     //////////////////////////////////////////////////////////////////////////////////////
-    Multiplexor(const int num) : Unit ("Multiplexor") {}
+    Multiplexor(const int num) : OperationUnit (num, "Multiplexor" + std::to_string(num)) {}
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Deleted Copy Constructor
@@ -38,17 +33,17 @@ class Multiplexor : Unit {
     ///
     /// @param os reference to ostream
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::ostream& operator<<(const std::ostream& os) {}
+    virtual std::ostream& operator<<(std::ostream& os) { return os; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief completes the multiplexor operation
     /// 
     /// @param cont Boolean for controlling what input is selected
-    /// @param op1 first of the binary strings to choose from
-    /// @param op2 second of the binary strings to choose from
+    /// @param arg1 first of the binary strings to choose from
+    /// @param arg2 second of the binary strings to choose from
     ///
     /// @return correct output of the two control lines
-    std::string multiplex(bool cont, std::string op1, std::string op2) {}
+    virtual void operate(bool cont, std::string& arg1, std::string& arg2) {}
 
 };
 

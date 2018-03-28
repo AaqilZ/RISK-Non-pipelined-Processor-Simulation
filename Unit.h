@@ -17,7 +17,7 @@ class Unit {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Constructor for class
     ///
-    /// @param type the type of unit being created
+    /// @param t the type of unit being created
     //////////////////////////////////////////////////////////////////////////////////////
     Unit(std::string t) { type = t; }
     
@@ -36,7 +36,7 @@ class Unit {
     ///
     /// @param os reference to an ostream
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::ostream& operator<<(const std::ostream& os) = 0;
+    virtual std::ostream& operator<<(std::ostream& os) = 0;
 
 };
 
