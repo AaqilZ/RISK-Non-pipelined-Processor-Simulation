@@ -35,7 +35,7 @@ class ALU : public OperationUnit {
     /// @param arg1 first argument for arithmetic
     /// @param arg2 second argument for arithmetic
     //////////////////////////////////////////////////////////////////////////////////////
-    void operate(bool c, std::string& arg1, std::string& arg2) {}
+    virtual void operate(bool c, std::string& arg1, std::string& arg2) {}
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Handles addition
