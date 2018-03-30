@@ -35,7 +35,7 @@ class OperationUnit : public Unit{
     ///
     /// @param os reference to an ostream
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::ostream& operator<<(const std::ostream& os) = 0;
+    virtual std::ostream& operator<<(std::ostream& os) = 0;
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Determines which other function to call
@@ -44,7 +44,7 @@ class OperationUnit : public Unit{
     /// @param arg1 first argument for arithmetic
     /// @param arg2 second argument for arithmetic
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual void operate(bool c, std::string& arg1, std::string& arg2) {}
+    virtual void operate(bool c, std::string& arg1, std::string& arg2) = 0;
 
 };
 
