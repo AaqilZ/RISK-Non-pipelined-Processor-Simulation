@@ -45,6 +45,10 @@ class Multiplexor : public OperationUnit {
     /// @return correct output of the two control lines
     virtual void operate(bool cont, std::string& arg1, std::string& arg2) {}
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief tests the Multiplexor class
+    //////////////////////////////////////////////////////////////////////////////////////
+    void testMultiplexor() { }
 };
 
 

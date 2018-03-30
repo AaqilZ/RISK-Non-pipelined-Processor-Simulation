@@ -66,6 +66,10 @@ class Parser {
     const std::unordered_map<std::string, std::string>& 
     parseMemory(const std::unordered_map<std::string,std::string>& mem) { return mem; }
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief tests the Parser class
+    //////////////////////////////////////////////////////////////////////////////////////
+    void testParser() { }
 };
 
 #endif
