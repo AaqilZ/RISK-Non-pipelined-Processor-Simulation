@@ -1,51 +1,51 @@
-#ifndef _MULTIPLEXOR_H_
-#define _MULTIPLEXOR_H_
+#ifndef _OPERATION_UNIT_H_
+#define _OPERATION_UNIT_H_
 
-#include <string>
-
-#include "OperationUnit.h"
+#include "Unit.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////
-/// @brief Multiplexor class
+/// @brief Class for OperationUnit. Inherited by ALU and Multiplexor.
 //////////////////////////////////////////////////////////////////////////////////////////
+class OperationUnit : public Unit{
 
-class Multiplexor : public OperationUnit {
+  private:
+    int unitNum = -1;
+
   public:
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief Constructor for Multiplexor class
+    /// @brief Constructor for class
     ///
-    /// @param num for this multiplexor instance (valid options 1-5)
+    /// @param type the type of unit being created
+    /// @param num the Number of the unit instance
     //////////////////////////////////////////////////////////////////////////////////////
-    Multiplexor(const int num) : OperationUnit (num, "Multiplexor" + std::to_string(num)) {}
-
+    OperationUnit(int num, std::string type) : Unit(type)  { unitNum = num; }
+    
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Deleted Copy Constructor
     //////////////////////////////////////////////////////////////////////////////////////
-    Multiplexor(const Multiplexor& other) = delete;
+    OperationUnit(const OperationUnit& other) = delete;
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief Default destructor
+    /// @brief Destructor
     //////////////////////////////////////////////////////////////////////////////////////
-    ~Multiplexor() = default;
+    ~OperationUnit() = default;
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief overload of << operator to print out current state of the multiplexor
+    /// @brief function that must be overridden by all children
     ///
-    /// @param os reference to ostream
+    /// @param os reference to an ostream
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::ostream& operator<<(std::ostream& os) { return os; }
+    virtual std::ostream& operator<<(const std::ostream& os) = 0;
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief completes the multiplexor operation
-    /// 
-    /// @param cont Boolean for controlling what input is selected
-    /// @param arg1 first of the binary strings to choose from
-    /// @param arg2 second of the binary strings to choose from
+    /// @brief Determines which other function to call
     ///
-    /// @return correct output of the two control lines
-    virtual void operate(bool cont, std::string& arg1, std::string& arg2) {}
+    /// @param c Control line
+    /// @param arg1 first argument for arithmetic
+    /// @param arg2 second argument for arithmetic
+    //////////////////////////////////////////////////////////////////////////////////////
+    virtual void operate(bool c, std::string& arg1, std::string& arg2) {}
 
 };
-
 
 #endif

@@ -5,8 +5,10 @@
 #include "Unit.h"
 
 class ALU;
-
-class ProgramCounter : Unit {
+//////////////////////////////////////////////////////////////////////////////////////////
+/// @brief Class for Program Counter
+//////////////////////////////////////////////////////////////////////////////////////////
+class ProgramCounter : public Unit {
 
   private:
     std::string instrAddr;                   ///< current instruction address
@@ -44,7 +46,7 @@ class ProgramCounter : Unit {
     ///
     /// @param os reference to ostream
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::ostream& operator<<(const std::ostream& os) {}
+    virtual std::ostream& operator<<(std::ostream& os) { return os; }
 };
 
 #endif

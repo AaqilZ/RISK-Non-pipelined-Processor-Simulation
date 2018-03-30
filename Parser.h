@@ -9,7 +9,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Class to parse inputs
-/// @TODO Decide if methods should be private
+/// @note TODO Decide if methods should be private
 
 class Parser {
   private:
@@ -41,25 +41,30 @@ class Parser {
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Parses the input file using inputFileName to set names of other files
-    void parseInput() {}
+    void parseInput();
 
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Parses the MIPS assembly code
     /// @details Calls the Instruction constructor
     /// @return unordered map of instructions
-    const std::unordered_map<std::string, Instruction>& parseMIPS() {}
+    /// @param mem Reference to map owned by processor
+    const std::unordered_map<std::string, Instruction>& 
+    parseMIPS(const std::unordered_map<std::string, Instruction>& mem) { return mem; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Parses the registerfile state
-    /// @details Calls the RegisterFile constructor
+    /// @details Passed a reference to an already existing RegisterFile object owned by processor or main
+    /// @param r Const reference to RegisterFile object
     /// @return Reference to the RegisterFile object
-    const RegisterFile& parseRegisterFile() {}
+    const RegisterFile& parseRegisterFile(const RegisterFile& r) { return r; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Parses the memory file
     /// @return reference to unordered map of memory data <address, memory value> -- must be converted from hex to bin
-    const std::unordered_map<std::string, std::string>& parseMemory() {}
+    /// @param mem Reference to the map owned by processor
+    const std::unordered_map<std::string, std::string>& 
+    parseMemory(const std::unordered_map<std::string,std::string>& mem) { return mem; }
 
 };
 
