@@ -176,5 +176,3 @@ __ALL OUTPUT MUST BE IN HEX__ (with leading 0x)
         * [ ] split into address and word value
         * [ ] added to Memory hashmap
 2. Run instructions in order according to value in the PC
-   1. Jump Instructions:
-      * 
