@@ -22,9 +22,8 @@ class Instruction {
     /// @brief Instruction constructor
     /// @details This function should take a string of MIPS assembly, parse it into relevant
     /// parts and create the instruction object to be added to the InstructionData hashmap 
-    /// @param inst String of assembly code to be parsed
     //////////////////////////////////////////////////////////////////////////////////////
-    Instruction(std::string inst);
+    Instruction() {}
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Deleted Copy Constructor
@@ -37,9 +36,27 @@ class Instruction {
     ~Instruction() {}
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @ brief << operator overload for output
+    /// @brief parses instruction string from input file
+    /// @param inst input string to be parsed
     //////////////////////////////////////////////////////////////////////////////////////
-    const std::ostream& operator<<(std::ostream& os) { return os; }
+    void parseInstruction(std::string inst);
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief parses the register number from a string starting with $
+    /// @param r string of format $xx or $x
+    int getRegisterNumber(std::string r);
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief get offset value from string
+    /// @param o string to get offset from
+    int getOffset(std::string o);
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief << operator overload for output
+    //////////////////////////////////////////////////////////////////////////////////////
+    const std::ostream& operator<<(std::ostream& os);
+
+    std::string getOpcode() { return opcode; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Instruction class

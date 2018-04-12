@@ -47,24 +47,20 @@ class Parser {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Parses the MIPS assembly code
     /// @details Calls the Instruction constructor
-    /// @return unordered map of instructions
     /// @param mem Reference to map owned by processor
-    const std::unordered_map<std::string, Instruction>& 
-    parseMIPS(const std::unordered_map<std::string, Instruction>& mem) { return mem; }
+    void parseMIPS(std::unordered_map<std::string, Instruction>& mem);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Parses the registerfile state
     /// @details Passed a reference to an already existing RegisterFile object owned by processor or main
-    /// @param r Const reference to RegisterFile object
-    /// @return Reference to the RegisterFile object
-    const RegisterFile& parseRegisterFile(const RegisterFile& r) { return r; }
+    /// @param r reference to array with register contents
+    void parseRegisterFile(std::string (&r)[32]);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Parses the memory file
     /// @return reference to unordered map of memory data <address, memory value> -- must be converted from hex to bin
     /// @param mem Reference to the map owned by processor
-    const std::unordered_map<std::string, std::string>& 
-    parseMemory(const std::unordered_map<std::string,std::string>& mem) { return mem; }
+    void parseMemory(std::unordered_map<std::string,std::string>& mem);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Parser class
