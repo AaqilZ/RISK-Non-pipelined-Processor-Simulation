@@ -43,7 +43,7 @@ class Multiplexor : public OperationUnit {
     /// @param arg2 second of the binary strings to choose from
     ///
     /// @return correct output of the two control lines
-    virtual void operate(bool cont, std::string& arg1, std::string& arg2) {}
+    virtual void operate(bool cont, std::string& arg1, std::string& arg2);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Multiplexor class
