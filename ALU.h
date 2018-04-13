@@ -37,7 +37,7 @@ class ALU : public OperationUnit {
     /// 
     /// @return string the argument to be chosen based on control
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::string operate(std::string control, std::string& arg1, std::string& arg2) { return ""; }
+    virtual std::string operate(std::string control, std::string& arg1, std::string& arg2);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Handles addition

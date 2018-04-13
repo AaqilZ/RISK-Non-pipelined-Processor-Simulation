@@ -5,7 +5,7 @@ operate(std::string control, std::string& arg1, std::string& arg2){
   std::string add = "01";
   std::string final = "";
   if(control == add)
-    final = add(arg1, arg2);
+    final = ALU::add(arg1, arg2);
 
   return final;
 }
