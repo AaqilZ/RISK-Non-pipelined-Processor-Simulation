@@ -16,6 +16,17 @@ class Instruction {
     int rt = -1;                        ///< stores the rt register
     int rd = -1;                        ///< stores the rd register
     std::string imm;                    ///< stores the immediate field
+    std::string func;                   ///< stores the function code of r-type instructions
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief parses the register number from a string starting with $
+    /// @param r string of format $xx or $x
+    int parseRegisterNumber(std::string r);
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief get offset value from string
+    /// @param o string to get offset from
+    int parseOffset(std::string o);
 
   public:
     //////////////////////////////////////////////////////////////////////////////////////
@@ -42,20 +53,12 @@ class Instruction {
     void parseInstruction(std::string inst);
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief parses the register number from a string starting with $
-    /// @param r string of format $xx or $x
-    int getRegisterNumber(std::string r);
-
-    //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief get offset value from string
-    /// @param o string to get offset from
-    int getOffset(std::string o);
-
-    //////////////////////////////////////////////////////////////////////////////////////
     /// @brief << operator overload for output
     //////////////////////////////////////////////////////////////////////////////////////
     const std::ostream& operator<<(std::ostream& os);
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief gets the opcode of the function
     std::string getOpcode() { return opcode; }
 
     //////////////////////////////////////////////////////////////////////////////////////

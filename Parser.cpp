@@ -91,11 +91,24 @@ parseMIPS(unordered_map<string, Instruction>& mem){
   string input;
   long address = 67108864;
   // while inputFile is good
-  while(inputFile.good()){
-  getline(inputFile, input);    
-    // if the line is not blank or a comment
-    if(input != "\n" && input.at(0) != '#'){
-      // construct Instruction object
+  // while(inputFile.good()){
+  // getline(inputFile, input);    
+  //   // if the line is not blank or a comment
+  //   if(input != "" && input.at(0) != '#' && input != eof()){
+  //     // construct Instruction object
+  //     Instruction i;
+  //     i.parseInstruction(input);
+  //     // add it to map with address as key TODO this should add at hex address
+  //     mem[to_string(address)] = i;
+  //     // increment address
+  //     address += 4;
+  //   }
+  // }
+  // cout << endl << endl;
+
+  for( std::string input; getline(inputFile, input); ){
+    if(input != "" && input.at(0) != '#'){
+      //construct instruction object
       Instruction i;
       i.parseInstruction(input);
       // add it to map with address as key TODO this should add at hex address
@@ -104,7 +117,7 @@ parseMIPS(unordered_map<string, Instruction>& mem){
       address += 4;
     }
   }
-  // cout << endl << endl;
+
 
   for(auto iter = mem.begin(); iter != mem.end(); ++iter){
     cout << iter->first << " : " << iter->second.getOpcode() << endl;
@@ -195,11 +208,17 @@ testParser(){
   cout << endl << "Results of parseMemory(mem): " << endl;
   parseMemory(mem);
   cout << "\tNumber of elements in memory: " << mem.size() << " [Expected: 100]" << endl;
-  cout << "FINISH TESTING" << endl;
+  cout << "\tElements in memory after input: " << endl;
+  for(auto iter = mem.begin(); iter != mem.end(); ++iter){
+    cout << "\t\t" << iter->first << " : " << iter->second << endl;
+  }
 
   std::unordered_map<std::string, Instruction> inst;
   cout << endl << "Results of parseMIPS(inst);" << endl;
   parseMIPS(inst);
   cout << "\tNumber of instructions: " << inst.size() << " [Expected: 10]" << endl;
-
+  cout << "Instructions in memory after input: " << endl;
+  for(auto iter = inst.begin(); iter != inst.end(); ++iter){
+    cout << "\t\t" << iter->first << " : " << iter->second.getOpcode() << endl;
+  }
 }

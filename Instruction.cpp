@@ -18,62 +18,65 @@ parseInstruction(string inst){
 
   if(type == "add"){
     opcode = "000000";
+    func = "100000";
     s >> arg1;
-    rd = getRegisterNumber(arg1);
+    rd = parseRegisterNumber(arg1);
     s >> arg2;
-    rs = getRegisterNumber(arg2);
+    rs = parseRegisterNumber(arg2);
     s >> arg3;
-    rt = getRegisterNumber(arg3);
+    rt = parseRegisterNumber(arg3);
   }
   else if (type == "addi"){
-    opcode = "000000";
+    opcode = "001000";
     s >> arg1;
-    rt = getRegisterNumber(arg1);
+    rt = parseRegisterNumber(arg1);
     s >> arg2;
-    rs = getRegisterNumber(arg2);
+    rs = parseRegisterNumber(arg2);
     s >> arg3;
     imm = atoi(arg3.c_str());
   }
   else if (type == "sub"){
     opcode = "000000";
+    func = "10010";
     s >> arg1;
-    rd = getRegisterNumber(arg1);
+    rd = parseRegisterNumber(arg1);
     s >> arg2;
-    rs = getRegisterNumber(arg2);
+    rs = parseRegisterNumber(arg2);
     s >> arg3;
-    rt = getRegisterNumber(arg3);
+    rt = parseRegisterNumber(arg3);
   }
   else if (type == "slt"){
     opcode = "000000";
+    func = "101010";
     s >> arg1;
-    rd = getRegisterNumber(arg1);
+    rd = parseRegisterNumber(arg1);
     s >> arg2;
-    rs = getRegisterNumber(arg2);
+    rs = parseRegisterNumber(arg2);
     s >> arg3;
-    rt = getRegisterNumber(arg3);
+    rt = parseRegisterNumber(arg3);
   }
   else if (type == "lw"){
     opcode = "110001";
     s >> arg1;
-    rt = getRegisterNumber(arg1);
+    rt = parseRegisterNumber(arg1);
     s >> arg2;
-    imm = getOffset(arg2);
-    rs = getRegisterNumber(arg2);
+    imm = parseOffset(arg2);
+    rs = parseRegisterNumber(arg2);
   }
   else if(type == "sw"){
     opcode = "110101";
     s >> arg1;
-    rt = getRegisterNumber(arg1);
+    rt = parseRegisterNumber(arg1);
     s >> arg2;
-    imm = getOffset(arg2);
-    rs = getRegisterNumber(arg2);
+    imm = parseOffset(arg2);
+    rs = parseRegisterNumber(arg2);
   }
   else if(type == "beq"){
     opcode = "001000";
     s >> arg1;
-    rs = getRegisterNumber(arg1);
+    rs = parseRegisterNumber(arg1);
     s >> arg2;
-    rt = getRegisterNumber(arg2);
+    rt = parseRegisterNumber(arg2);
     s >> arg3;
     imm = atoi(arg3.c_str());
   }
@@ -87,7 +90,7 @@ parseInstruction(string inst){
 
 int
 Instruction::
-getRegisterNumber(string r){
+parseRegisterNumber(string r){
   int subStrStart = 1;
   int subStrLength = r.length() - 1;
   if(r.find(',') != string::npos){
@@ -104,7 +107,7 @@ getRegisterNumber(string r){
 
 int
 Instruction::
-getOffset(string o){
+parseOffset(string o){
   int splitInd = o.find('(');
   // cout << o.substr(0, splitInd) << endl;
   return atoi(o.substr(0,splitInd).c_str());
