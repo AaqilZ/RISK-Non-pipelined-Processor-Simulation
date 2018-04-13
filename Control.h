@@ -10,18 +10,18 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 class Control : Unit {
   private:
-    std::string  regDst   {""};             ///< false: write reg # from rt; true: write reg from rd
-    std::string  jump     {""};               ///< whether to have PC jump
-    std::string  branch   {""};             ///< false: PC = PC + 4; true: PC = branch
-    std::string  memRead  {""};            ///< False: none; true: data memory designated by address input are moved to Read data output
+    std::string  regDst   {""};           ///< false: write reg # from rt; true: write reg from rd
+    std::string  jump     {""};           ///< whether to have PC jump
+    std::string  branch   {""};           ///< false: PC = PC + 4; true: PC = branch
+    std::string  memRead  {""};           ///< False: none; true: data memory designated by address input are moved to Read data output
     std::string  memToReg {""};           ///< false: value fed to register Write data input comes from ALU; true: value fed to the 
                                           ///  register Write data comes from the data memory
-    std::string  ALUOp0   {""};             ///< true for branch
-    std::string  ALUOp1   {""};             ///< true for r-format
+    std::string  ALUOp0   {""};           ///< true for branch
+    std::string  ALUOp1   {""};           ///< true for r-format
     std::string  memWrite {""};           ///< false: none; true: data memory designated by adddress input are replaced by value on Write data input
-    std::string  ALUSrc   {""};             ///< false: 2nd ALU op from 2nd reg file output; true: 2nd ALU op is sign extended 16 bits of instruction
+    std::string  ALUSrc   {""};           ///< false: 2nd ALU op from 2nd reg file output; true: 2nd ALU op is sign extended 16 bits of instruction
     std::string  regWrite {""};           ///< write to reg with value on Write data input
-    std::string ALUControl;         ///< control signal for main ALU (4 digits)
+    std::string ALUControl;               ///< control signal for main ALU (4 digits)
 
   public:
     //////////////////////////////////////////////////////////////////////////////////////

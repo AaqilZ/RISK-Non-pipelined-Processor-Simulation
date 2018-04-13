@@ -1,6 +1,4 @@
 #include "Utilities.h"
-
-#include "Utilities.h"
 #include <string>
 #include <bitset>
 #include <iostream>
