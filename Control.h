@@ -10,17 +10,18 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 class Control : Unit {
   private:
-    bool regDst;                          ///< false: write reg # from rt; true: write reg from rd
-    bool jump;                            ///< whether to have PC jump
-    bool branch;                          ///< false: PC = PC + 4; true: PC = branch
-    bool memRead;                         ///< False: none; true: data memory designated by address input are moved to Read data output
-    bool memToReg;                        ///< false: value fed to register Write data input comes from ALU; true: value fed to the register Write data comes from the data memory
-    bool ALUOp0;                          ///< true for branch
-    bool ALUOp1;                          ///< true for r-format
-    bool memWrite;                        ///< false: none; true: data memory designated by adddress input are replaced by value on Write data input
-    bool ALUSrc;                          ///< false: 2nd ALU op from 2nd reg file output; true: 2nd ALU op is sign extended 16 bits of instruction
-    bool regWrite;                        ///< write to reg with value on Write data input
-    std::string ALUControl;               ///< control signal for main ALU (4 digits)
+    bool regDst{false};             ///< false: write reg # from rt; true: write reg from rd
+    bool jump{false};               ///< whether to have PC jump
+    bool branch{false};             ///< false: PC = PC + 4; true: PC = branch
+    bool memRead{false};            ///< False: none; true: data memory designated by address input are moved to Read data output
+    bool memToReg{false};           ///< false: value fed to register Write data input comes from ALU; true: value fed to the 
+                                    ///  register Write data comes from the data memory
+    bool ALUOp0{false};             ///< true for branch
+    bool ALUOp1{false};             ///< true for r-format
+    bool memWrite{false};           ///< false: none; true: data memory designated by adddress input are replaced by value on Write data input
+    bool ALUSrc{false};             ///< false: 2nd ALU op from 2nd reg file output; true: 2nd ALU op is sign extended 16 bits of instruction
+    bool regWrite{false};           ///< write to reg with value on Write data input
+    std::string ALUControl;         ///< control signal for main ALU (4 digits)
 
   public:
     //////////////////////////////////////////////////////////////////////////////////////
@@ -48,14 +49,14 @@ class Control : Unit {
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Clear all control lines
-    void clear() {}
+    void clear();
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Sets all control lines based on opcode
     ///
     /// @details Uses switch statement to set all controls given different opcodes.
     /// @param inst Const reference to the instruction
-    void setControlLines(const Instruction& inst) {}
+    void setControlLines(const Instruction& inst);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get regDst
