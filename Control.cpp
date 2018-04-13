@@ -2,26 +2,26 @@
 
 void
 Control::clear(){
-  regDst    = false;    
-  jump      = false;      
-  branch    = false;    
-  memRead   = false;   
-  memToReg  = false;  
+  regDst    = "";    
+  jump      = "";      
+  branch    = "";    
+  memRead   = "";   
+  memToReg  = "";  
 
-  ALUOp0    = false;    
-  ALUOp1    = false;    
-  memWrite  = false;  
-  ALUSrc    = false;    
-  regWrite  = false;  
+  ALUOp0    = "";    
+  ALUOp1    = "";    
+  memWrite  = "";  
+  ALUSrc    = "";    
+  regWrite  = "";  
 }
 
 void
 Control::setControlLines(const Instruction& inst){
-  switch(inst.getOpcode()){
+  //switch(inst.getOpcode()){
     //ADD + SUB + SLT   ->case "000000":
     //ADDI              ->case "001000":
     //LW                ->case "100011":
     //SW                ->case "101011":
     //j                 ->case "000010":
-  }
+ // }
 }

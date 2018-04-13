@@ -20,7 +20,7 @@ std::string dec2hex(int dec) { return ""; }
 /// @brief helper function to translate hex to integer
 /// @param hex the hex string to translate
 //////////////////////////////////////////////////////////////////////////////////////////
-int hex2dec(string hex) { return -1; }
+int hex2dec(std::string hex) { return -1; }
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief helper function to translate a binary string to hex
