@@ -36,14 +36,15 @@ class Multiplexor : public OperationUnit {
     virtual std::ostream& operator<<(std::ostream& os) { return os; }
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief completes the multiplexor operation
-    /// 
-    /// @param cont Boolean for controlling what input is selected
-    /// @param arg1 first of the binary strings to choose from
-    /// @param arg2 second of the binary strings to choose from
+    /// @brief Determines which other function to call
     ///
-    /// @return correct output of the two control lines
-    virtual void operate(bool cont, std::string& arg1, std::string& arg2);
+    /// @param c bit string Control line
+    /// @param arg1 first argument for arithmetic
+    /// @param arg2 second argument for arithmetic
+    /// 
+    /// @return string the argument to be chosen based on control
+    //////////////////////////////////////////////////////////////////////////////////////
+    virtual std::string operate(std::string control, std::string& arg1, std::string& arg2);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Multiplexor class

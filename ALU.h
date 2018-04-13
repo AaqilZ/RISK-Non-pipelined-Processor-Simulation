@@ -29,13 +29,15 @@ class ALU : public OperationUnit {
     ~ALU() = default;
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief Determines which other function to call based on control lines
+    /// @brief Determines which other function to call
     ///
-    /// @param c control value that determines what operation to perform
+    /// @param c bit string Control line
     /// @param arg1 first argument for arithmetic
     /// @param arg2 second argument for arithmetic
+    /// 
+    /// @return string the argument to be chosen based on control
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual void operate(bool c, std::string& arg1, std::string& arg2) {}
+    virtual std::string operate(std::string control, std::string& arg1, std::string& arg2) { return ""; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Handles addition

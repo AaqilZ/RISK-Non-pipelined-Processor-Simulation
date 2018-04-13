@@ -37,14 +37,15 @@ class OperationUnit : public Unit{
     //////////////////////////////////////////////////////////////////////////////////////
     virtual std::ostream& operator<<(std::ostream& os) = 0;
 
+
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Determines which other function to call
     ///
-    /// @param c Control line
+    /// @param c bit string Control line
     /// @param arg1 first argument for arithmetic
     /// @param arg2 second argument for arithmetic
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual void operate(bool c, std::string& arg1, std::string& arg2) = 0;
+    virtual std::string operate(std::string control, std::string& arg1, std::string& arg2) = 0;
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the OperationUnit class
