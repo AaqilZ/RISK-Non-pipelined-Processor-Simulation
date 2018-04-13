@@ -1,6 +1,17 @@
 #include "ALU.h"
 
 std::string ALU::
+operate(std::string control, std::string& arg1, std::string& arg2){
+  std::string add = "01";
+  std::string final = "";
+  if(control == add)
+    final = add(arg1, arg2);
+
+  return final;
+}
+
+
+std::string ALU::
 add(std::string& arg1, std::string& arg2) { 
   std::string result;           // the final string that will be returned
  
