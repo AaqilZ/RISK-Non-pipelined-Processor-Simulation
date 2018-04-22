@@ -1,11 +1,26 @@
 #include "ALU.h"
+#include "Utilities.h"
 
 std::string ALU::
 operate(std::string control, std::string& arg1, std::string& arg2){
-  std::string add = "01";
+  std::string add = "0010";
+  std::string subtract = "0110";
+  std::string slt = "0111";
   std::string final = "";
+
   if(control == add)
     final = ALU::add(arg1, arg2);
+  else if(control == subtract){
+    arg2 = twosComp(arg2);          // make arg2 a negative
+    final = ALU::add(arg1, arg2);   // add arg1 and -arg2
+  } else if(control == slt){
+    int one = stoi(Utilities::bin2dec(arg1));
+    int two = stoi(Utilities::bin2dec(arg2));
+    if(one < two)
+      final = "1";
+    else
+      final = "0";
+  }
 
   return final;
 }
@@ -13,11 +28,11 @@ operate(std::string control, std::string& arg1, std::string& arg2){
 
 std::string ALU::
 add(std::string& arg1, std::string& arg2) { 
-  std::string result;           // the final string that will be returned
+  std::string result;             // the final string that will be returned
  
   int length = arg1.length();     // get the length of the string
  
-  int carry = 0;                // this will be use to 'carry the 1'
+  int carry = 0;                  // this will be use to 'carry the 1'
  
   // starting from the right, go through each bit position and add, tracking carry    
   for (int i = length - 1 ; i >= 0 ; i--)
@@ -26,12 +41,12 @@ add(std::string& arg1, std::string& arg2) {
     int bitOne = bitOneChar - '0';    // convert char to int the char represents
     
     char bitTwoChar = arg2.at(i);     // grab the char at current index
-    int bitTwo = bitTwoChar - '0';      // convert char to int the char represents
+    int bitTwo = bitTwoChar - '0';    // convert char to int the char represents
  
     
     int sum = (bitOne ^ bitTwo ^ carry) + '0';    // sum the three bits using XOR operator 
  
-    result = (char)sum + result;            // put the sum of the XORs into result as a char since char is a string
+    result = (char)sum + result;    // put the sum of the XORs into result as a char since char is a string
     
     // conduct bitwise AND on each possible pair
     int bitOneANDbitTwo = (bitOne & bitTwo);
