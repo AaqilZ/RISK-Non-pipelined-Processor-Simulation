@@ -107,7 +107,8 @@ parseMIPS(unordered_map<string, Instruction>& mem){
   // cout << endl << endl;
 
   for( std::string input; getline(inputFile, input); ){
-    if(input != "" && input.at(0) != '#'){
+    // cout << input.length() << "  " << input << endl;
+    if(input.length() > 0 && input.at(0) != '#' && input != "\t" && input != " "){
       //construct instruction object
       Instruction i;
       i.parseInstruction(input);
@@ -119,9 +120,9 @@ parseMIPS(unordered_map<string, Instruction>& mem){
   }
 
 
-  for(auto iter = mem.begin(); iter != mem.end(); ++iter){
-    cout << iter->first << " : " << iter->second.getOpcode() << endl;
-  }
+  // for(auto iter = mem.begin(); iter != mem.end(); ++iter){
+  //   cout << iter->first << " : " << iter->second.getOpcode() << endl;
+  // }
 
   inputFile.close();
 }
@@ -217,7 +218,7 @@ testParser(){
   cout << endl << "Results of parseMIPS(inst);" << endl;
   parseMIPS(inst);
   cout << "\tNumber of instructions: " << inst.size() << " [Expected: 10]" << endl;
-  cout << "Instructions in memory after input: " << endl;
+  cout << "\tInstructions in memory after input: " << endl;
   for(auto iter = inst.begin(); iter != inst.end(); ++iter){
     cout << "\t\t" << iter->first << " : " << iter->second.getOpcode() << endl;
   }
