@@ -18,7 +18,7 @@ parseInstruction(string inst){
 
   if(type == "add"){
     opcode = "000000";
-    func = "100000";
+    func = "100100";
     s >> arg1;
     rd = parseRegisterNumber(arg1);
     s >> arg2;
@@ -37,7 +37,7 @@ parseInstruction(string inst){
   }
   else if (type == "sub"){
     opcode = "000000";
-    func = "10010";
+    func = "100010";
     s >> arg1;
     rd = parseRegisterNumber(arg1);
     s >> arg2;
@@ -56,7 +56,7 @@ parseInstruction(string inst){
     rt = parseRegisterNumber(arg3);
   }
   else if (type == "lw"){
-    opcode = "110001";
+    opcode = "100011";
     s >> arg1;
     rt = parseRegisterNumber(arg1);
     s >> arg2;
@@ -64,7 +64,7 @@ parseInstruction(string inst){
     rs = parseRegisterNumber(arg2);
   }
   else if(type == "sw"){
-    opcode = "110101";
+    opcode = "101011";
     s >> arg1;
     rt = parseRegisterNumber(arg1);
     s >> arg2;
@@ -72,7 +72,7 @@ parseInstruction(string inst){
     rs = parseRegisterNumber(arg2);
   }
   else if(type == "beq"){
-    opcode = "001000";
+    opcode = "000100";
     s >> arg1;
     rs = parseRegisterNumber(arg1);
     s >> arg2;

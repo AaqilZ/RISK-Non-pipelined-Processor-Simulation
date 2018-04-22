@@ -4,16 +4,26 @@
 #include <iostream>
 
 
-std::string bin2dec(const std::string& bin){
-  std::bitset<4> foo(bin);
-  return std::to_string(foo.to_ulong());
+std::string 
+bin2dec(const std::string& bin){
+  std::string localBin = bin;
+  std::string dec = "";
+  if(bin.length()>4){
+    for(size_t i = 0; i < localBin.length() - 3; i+=4){ //This assumes that the bin 
+      dec += (std::bitset<4>(localBin.substr(i, i+4))).to_ulong();  //numb is in groups of 4 bit
+    }
+  }  
+  else
+    dec = (std::bitset<4>(bin)).to_ulong();
+  return dec;
 }
 
 
-std::string bin2hex(const std::string& bin){
+std::string 
+bin2hex(const std::string& bin){
   std::string localBin = bin;
   std::string hex = "0x";
-  for(int i = 0; i < localBin.length() - 3; i+=4){ //This assumes that the bin 
+  for(size_t i = 0; i < localBin.length() - 3; i+=4){ //This assumes that the bin 
     std::string dec = localBin.substr(i, i+4);     //numb is in groups of 4 bit
     dec = bin2dec(dec);
     if(stoi(dec) < 10)
@@ -35,11 +45,12 @@ std::string bin2hex(const std::string& bin){
 }
 
 
-std::string hex2bin(const std::string& hex){
+std::string 
+hex2bin(const std::string& hex){
   std::string nonConstHex = hex;
   std::string bin = "";
   if(hex[0]=='0' && tolower(hex[1])=='x'){nonConstHex = nonConstHex.erase(0,2);}
-  for(int i = 0; i < hex.length(); i++){
+  for(size_t i = 0; i < hex.length(); i++){
     switch(tolower(hex[i])){
       case '0': bin+="0000";
       case '1': bin+="0001";
@@ -64,14 +75,16 @@ std::string hex2bin(const std::string& hex){
 }
 
 
-std::string signExt(std::string& num, const std::string& value, int numDigits = 32){
+std::string 
+signExt(std::string& num, const std::string& value, size_t numDigits = 32){
   while(num.length()<numDigits)
     num.insert(0, value);
   return num; 
 }
 
 
-std::string shiftLeft2(const std::string& value) {
+std::string 
+shiftLeft2(const std::string& value) {
   std::string bin = "";
   if(tolower(value[1])=='x'){
     bin = hex2bin(value);
@@ -85,3 +98,14 @@ std::string shiftLeft2(const std::string& value) {
   }
   return bin; 
 }
+
+std::string 
+hex2dec(std::string hex){ 
+  return bin2dec(hex2bin(hex));
+}
+
+std::string 
+dec2hex(int dec) { return ""; }
+
+void 
+testUtilities() { return ; }

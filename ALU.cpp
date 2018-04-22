@@ -86,7 +86,7 @@ bitwiseAND(std::string& arg1, std::string& arg2){
   std::string final = "";
 
   // loop through the string one bit at a time, right to left
-  for(int i = 0; i < arg1.length(); i++){
+  for(size_t i = 0; i < arg1.length(); i++){
     // if both are 1, append 1 to final (AND)
     if(arg1[i] == arg2[i] && arg1[i] == '1')
       final += "1";
@@ -103,7 +103,7 @@ bitwiseOR(std::string& arg1, std::string& arg2){
   std::string final = "";
 
   // loop through the string one bit at a time, right to left
-  for(int i = 0; i < arg1.length(); i++){
+  for(size_t i = 0; i < arg1.length(); i++){
     // if either bit is 1, append 1 to final (OR)
     if(arg1[i] == '1' || arg2[i] == '1')
       final += "1";

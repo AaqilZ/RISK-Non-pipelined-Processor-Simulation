@@ -10,18 +10,18 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 class Control : Unit {
   private:
-    std::string  regDst   {""};             ///< false: write reg # from rt; true: write reg from rd
-    std::string  jump     {""};               ///< whether to have PC jump
-    std::string  branch   {""};             ///< false: PC = PC + 4; true: PC = branch
-    std::string  memRead  {""};            ///< False: none; true: data memory designated by address input are moved to Read data output
-    std::string  memToReg {""};           ///< false: value fed to register Write data input comes from ALU; true: value fed to the 
-                                          ///  register Write data comes from the data memory
-    std::string  ALUOp0   {""};             ///< true for branch
-    std::string  ALUOp1   {""};             ///< true for r-format
-    std::string  memWrite {""};           ///< false: none; true: data memory designated by adddress input are replaced by value on Write data input
-    std::string  ALUSrc   {""};             ///< false: 2nd ALU op from 2nd reg file output; true: 2nd ALU op is sign extended 16 bits of instruction
-    std::string  regWrite {""};           ///< write to reg with value on Write data input
-    std::string ALUControl;         ///< control signal for main ALU (4 digits)
+    bool  regDst   {false};           ///< false: write reg # from rt; true: write reg from rd
+    bool  jump     {false};           ///< whether to have PC jump
+    bool  branch   {false};           ///< false: PC = PC + 4; true: PC = branch
+    bool  memRead  {false};           ///< False: none; true: data memory designated by address input are moved to Read data output
+    bool  memToReg {false};           ///< false: value fed to register Write data input comes from ALU; true: value fed to the 
+                                      ///  register Write data comes from the data memory
+    bool  ALUOp0   {false};           ///< true for branch
+    bool  ALUOp1   {false};           ///< true for r-format
+    bool  memWrite {false};           ///< false: none; true: data memory designated by adddress input are replaced by value on Write data input
+    bool  ALUSrc   {false};           ///< false: 2nd ALU op from 2nd reg file output; true: 2nd ALU op is sign extended 16 bits of instruction
+    bool  regWrite {false};           ///< write to reg with value on Write data input
+    std::string ALUControl{""};               ///< control signal for main ALU (4 digits)
 
   public:
     //////////////////////////////////////////////////////////////////////////////////////
@@ -60,43 +60,43 @@ class Control : Unit {
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get regDst
-    std::string getRegDst() { return regDst; }
+    bool getRegDst() { return regDst; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get jump control value
-    std::string getJump() { return jump; }
+    bool getJump() { return jump; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get branch control value
-    std::string getBranch() { return branch; }
+    bool getBranch() { return branch; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get memRead control value
-    std::string getMemRead() { return memRead; }
+    bool getMemRead() { return memRead; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get memToReg control value
-    std::string getMemToReg() { return memToReg; }
+    bool getMemToReg() { return memToReg; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get ALUOp0 control value
-    std::string getALUOp0() { return ALUOp0; }
+    bool getALUOp0() { return ALUOp0; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get ALUOp1 control value
-    std::string getALUOp1() { return ALUOp1; }
+    bool getALUOp1() { return ALUOp1; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get memWrite control value
-    std::string getMemWrite() { return memWrite; }
+    bool getMemWrite() { return memWrite; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get ALUSrc control value
-    std::string getALUSrc() { return ALUSrc; }
+    bool getALUSrc() { return ALUSrc; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get regWrite control value
-    std::string getRegWrite() { return regWrite; }
+    bool getRegWrite() { return regWrite; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get ALUControl control value
