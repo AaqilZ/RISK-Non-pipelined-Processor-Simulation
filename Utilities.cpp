@@ -2,20 +2,19 @@
 #include <string>
 #include <bitset>
 #include <iostream>
+#include <math.h>
 
+using namespace std;
 
 std::string 
 bin2dec(const std::string& bin){
-  std::string localBin = bin;
-  std::string dec = "";
-  if(bin.length()>4){
-    for(size_t i = 0; i < localBin.length() - 3; i+=4){ //This assumes that the bin 
-      dec += (std::bitset<4>(localBin.substr(i, i+4))).to_ulong();  //numb is in groups of 4 bit
+  int decimal = 0;
+  for(int i = 0; i<bin.length(); i++){
+    if(bin[i]=='1'){
+      decimal += pow(2, bin.length()-i);
     }
-  }  
-  else
-    dec = (std::bitset<4>(bin)).to_ulong();
-  return dec;
+  }
+  return to_string(decimal);
 }
 
 
@@ -50,24 +49,40 @@ hex2bin(const std::string& hex){
   std::string nonConstHex = hex;
   std::string bin = "";
   if(hex[0]=='0' && tolower(hex[1])=='x'){nonConstHex = nonConstHex.erase(0,2);}
-  for(size_t i = 0; i < hex.length(); i++){
-    switch(tolower(hex[i])){
+  for(size_t i = 0; i < nonConstHex.length(); i++){
+    switch(tolower(nonConstHex[i])){
       case '0': bin+="0000";
+        break;
       case '1': bin+="0001";
+        break;
       case '2': bin+="0010";
+        break;
       case '3': bin+="0011";
+        break;
       case '4': bin+="0100";
+        break;
       case '5': bin+="0101";
+        break;
       case '6': bin+="0110";
+        break;
       case '7': bin+="0111";
+        break;
       case '8': bin+="1000";
+        break;
       case '9': bin+="1001";
+        break;
       case 'a': bin+="1010";
+        break;
       case 'b': bin+="1011";
+        break;
       case 'c': bin+="1100";
+        break;
       case 'd': bin+="1101";
+        break;
       case 'e': bin+="1110";
+        break;
       case 'f': bin+="1111";
+        break;
       default: continue;
     }
   }
