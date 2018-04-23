@@ -3,7 +3,7 @@
 
 #include <string>
 #include <unordered_map>
-#include <array>
+#include <vector>
 
 #include "Unit.h"
 #include "Instruction.h"
@@ -23,7 +23,7 @@ class Processor : public Unit {
   private:
     std::unordered_map<std::string, Instruction> InstructionData;   ///< hashmap to store instructions
     std::unordered_map<std::string, std::string> MemoryData;        ///< hashmap to store data
-    std::string registerContents[32];
+    std::vector<std::string> registerContents;                   ///< array to hold the register contents
     ALU aluOne{1};                                                  ///< ALU for adding 4 to immediate value
     ALU aluTwo{2};                                                  ///< ALU that receives from shift left 2 and sends data to mux
     ALU aluThree{3};                                                ///< ALU that receives from mux and read data one and sends data to data memory
@@ -53,14 +53,32 @@ class Processor : public Unit {
     ~Processor() {}
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief Method that runs the processor
+    /// @brief Method that runs the processor a single step
     //////////////////////////////////////////////////////////////////////////////////////
     void process() {}
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief function that must be overridden by all children
+    /// @name Getters
+    /// @{
+    
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::ostream& operator<<(const std::ostream& os) = 0;
+    /// @brief returns map of instruction objects
+    std::unordered_map<std::string, Instruction>& getInstructionData() { return InstructionData; }
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief returns map of Memory data
+    std::unordered_map<std::string, std::string>& getMemoryData() { return MemoryData; }
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief returns array of register contents
+    std::vector<std::string>& getRegisterData() { return registerContents; }
+
+
+    /// @}
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief override for output
+    //////////////////////////////////////////////////////////////////////////////////////
+    virtual std::ostream& operator<<(std::ostream& os) { return os; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Processor class

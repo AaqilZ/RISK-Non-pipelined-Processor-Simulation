@@ -28,6 +28,11 @@ class Instruction {
     /// @param o string to get offset from
     int parseOffset(std::string o);
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief get immediate value from hex or decimal string
+    /// @param hex or decimal string
+    int parseImmediate(std::string i);
+
   public:
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Instruction constructor
