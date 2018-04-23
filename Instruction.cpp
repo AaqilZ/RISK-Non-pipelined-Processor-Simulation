@@ -111,6 +111,9 @@ int
 Instruction::
 parseOffset(string o){
   int splitInd = o.find('(');
+  if(o.find("x") != string::npos){
+    return parseImmediate(o.substr(0,splitInd).c_str());
+  }
   return atoi(o.substr(0,splitInd).c_str());
 }
 
