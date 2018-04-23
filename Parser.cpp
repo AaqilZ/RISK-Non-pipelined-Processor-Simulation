@@ -6,8 +6,16 @@
 #include <string>
 #include <unordered_map>
 #include <cstdlib>
+#include <vector>
 
 using namespace std;
+
+
+// TODO change to initializer list
+Parser::
+Parser(string& file) : inputFileName(file) {
+  parseInput();
+}
 
 void
 Parser::
@@ -107,7 +115,8 @@ parseMIPS(unordered_map<string, Instruction>& mem){
   // cout << endl << endl;
 
   for( std::string input; getline(inputFile, input); ){
-    if(input != "" && input.at(0) != '#'){
+    // cout << input.length() << "  " << input << endl;
+    if(input.length() > 0 && input.at(0) != '#' && input != "\t" && input != " "){
       //construct instruction object
       Instruction i;
       i.parseInstruction(input);
@@ -119,16 +128,16 @@ parseMIPS(unordered_map<string, Instruction>& mem){
   }
 
 
-  for(auto iter = mem.begin(); iter != mem.end(); ++iter){
-    cout << iter->first << " : " << iter->second.getOpcode() << endl;
-  }
+  // for(auto iter = mem.begin(); iter != mem.end(); ++iter){
+  //   cout << iter->first << " : " << iter->second.getOpcode() << endl;
+  // }
 
   inputFile.close();
 }
 
 void
 Parser::
-parseRegisterFile(string (&r)[32]){
+parseRegisterFile(vector<string>& r){
   ifstream inputFile;
   inputFile.open(registerFileName);
   // Confirm file was successfully opened
@@ -142,7 +151,7 @@ parseRegisterFile(string (&r)[32]){
   for(int i = 0; i < 32; ++i){
     inputFile >> in;
     splitInd = in.find(':');
-    r[i] = in.substr(splitInd + 1);
+    r.push_back(in.substr(splitInd + 1));
     // cout << r[i] << endl;
   }
   // close the input stream
@@ -193,7 +202,7 @@ void
 Parser::
 testParser(){
   cout << "Testing parseInput(): " << endl;
-  cout << "\tinputFileName: " << inputFileName << " [Expected: sample_inputs/input.config]" << endl;
+  cout << "\tinputFileName: " << inputFileName << " [Expected: input.config]" << endl;
   cout << "\tmipsFileName: " << mipsFileName << " [Expected: prog1.asm]" << endl;
   cout << "\tregisterFileName: " << registerFileName << " [Expected: register1.memory]" << endl;
   cout << "\tmemoryFileName: " << memoryFileName << " [Expected: data1.memory]" << endl;
@@ -217,8 +226,17 @@ testParser(){
   cout << endl << "Results of parseMIPS(inst);" << endl;
   parseMIPS(inst);
   cout << "\tNumber of instructions: " << inst.size() << " [Expected: 10]" << endl;
-  cout << "Instructions in memory after input: " << endl;
+  cout << "\tInstructions in memory after input: " << endl;
   for(auto iter = inst.begin(); iter != inst.end(); ++iter){
     cout << "\t\t" << iter->first << " : " << iter->second.getOpcode() << endl;
+  }
+
+
+  std::vector<std::string> reg;
+  cout << endl << "Results of parseRegisterFile();" << endl;
+  parseRegisterFile(reg);
+  cout << "\tRegister contents:" << endl;
+  for( int i = 0; i < 32; ++i){
+    cout << "\t\t" << i << " : " << reg[i] << endl;
   }
 }

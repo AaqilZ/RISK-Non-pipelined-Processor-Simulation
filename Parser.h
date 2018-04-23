@@ -3,6 +3,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include "Instruction.h"
 #include "RegisterFile.h"
@@ -27,8 +28,8 @@ class Parser {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Constructor
     ///
-    /// @param file Name of input file (should come from command line)
-    Parser(std::string file) { inputFileName = file; }
+    /// @param file L-value reference to name of input file (should come from command line)
+    Parser(std::string& file);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Deleted copy constructor
@@ -53,8 +54,8 @@ class Parser {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Parses the registerfile state
     /// @details Passed a reference to an already existing RegisterFile object owned by processor or main
-    /// @param r reference to array with register contents
-    void parseRegisterFile(std::string (&r)[32]);
+    /// @param r l-value reference to vector with register contents
+    void parseRegisterFile(std::vector<std::string>& r);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Parses the memory file

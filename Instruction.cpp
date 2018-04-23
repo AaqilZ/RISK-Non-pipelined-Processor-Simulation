@@ -33,7 +33,7 @@ parseInstruction(string inst){
     s >> arg2;
     rs = parseRegisterNumber(arg2);
     s >> arg3;
-    imm = atoi(arg3.c_str());
+    imm = parseImmediate(arg3);
   }
   else if (type == "sub"){
     opcode = "000000";
@@ -78,12 +78,12 @@ parseInstruction(string inst){
     s >> arg2;
     rt = parseRegisterNumber(arg2);
     s >> arg3;
-    imm = atoi(arg3.c_str());
+    imm = parseImmediate(arg3);
   }
   else if(type == "j"){
     opcode = "000010";
     s >> arg1;
-    imm = atoi(arg1.c_str());
+    imm = parseImmediate(arg1);
     // cout << imm;
   }
 }
@@ -111,6 +111,13 @@ parseOffset(string o){
   int splitInd = o.find('(');
   // cout << o.substr(0, splitInd) << endl;
   return atoi(o.substr(0,splitInd).c_str());
+}
+
+int
+Instruction::
+parseImmediate(string i){
+  // TODO MAKE THIS HANDLE HEX VALUES
+  return atoi(i.c_str());
 }
 
 const ostream&

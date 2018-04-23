@@ -10,8 +10,14 @@
 /// @details uses command line arg to construct parser, owns processor, stores input booleans, calls for output, etc
 //////////////////////////////////////////////////////////////////////////////////////////
 int main() {
+  std::string temp{"input.config"};
+  Parser parser(temp);
+  
+  Processor processor{};
 
-  Parser parser("sample_inputs/input.config");
-
+  parser.parseMIPS(processor.getInstructionData());
+  parser.parseRegisterFile(processor.getRegisterData());
+  parser.parseMemory(processor.getMemoryData());
+  
   return 0;
 }
