@@ -14,8 +14,8 @@ operate(std::string control, std::string& arg1, std::string& arg2){
     arg2 = twosComp(arg2);          // make arg2 a negative
     final = ALU::add(arg1, arg2);   // add arg1 and -arg2
   } else if(control == slt){
-    int one = stoi(Utilities::bin2dec(arg1));
-    int two = stoi(Utilities::bin2dec(arg2));
+    int one = stoi(bin2dec(arg1));  // convert arg1 to int for easy comparison
+    int two = stoi(bin2dec(arg2));  // convert arg1 to int for easy comparison
     if(one < two)
       final = "1";
     else
@@ -114,6 +114,33 @@ bitwiseOR(std::string& arg1, std::string& arg2){
   return final;
 }
 
+void ALU::setControl(bool ALUop1, bool ALUop2, std::string func){
+  //  lw or sw
+  //  00
+  if(!ALUop1 && !ALUop2)
+    control = "0010";   // alu: add()
+
+  //  beq
+  //  01
+  if(!ALUop1 && ALUop2)
+    control = "0110";   // alu: subtract()
+
+  //  R-type
+  //  11
+  if(ALUop1 && ALUop2){
+    //  add + addi
+    if(func == "100000" || func == "000000")
+      control ="0010";  // alu: add()
+
+    //  sub
+    if(func == "100010")
+      control = "0110"; // alu: subtract()
+
+    //  slt
+    if(func == "101010")
+      control = "0111"; // alu: slt()
+  }
+}
 
 void ALU::
 testALU(){
