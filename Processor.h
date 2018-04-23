@@ -23,7 +23,7 @@ class Processor : public Unit {
   private:
     std::unordered_map<std::string, Instruction> InstructionData;   ///< hashmap to store instructions
     std::unordered_map<std::string, std::string> MemoryData;        ///< hashmap to store data
-    std::vector<std::string> registerContents;                   ///< array to hold the register contents
+    std::vector<std::string> registerContents;                      ///< array to hold the register contents
     ALU aluOne{1};                                                  ///< ALU for adding 4 to immediate value
     ALU aluTwo{2};                                                  ///< ALU that receives from shift left 2 and sends data to mux
     ALU aluThree{3};                                                ///< ALU that receives from mux and read data one and sends data to data memory
