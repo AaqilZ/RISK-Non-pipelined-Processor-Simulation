@@ -94,7 +94,12 @@ string
 signExt(const string& value, size_t numDigits = 32){
   string num = value;
   while(num.length()<numDigits)
-    num.insert(0, "0");
+    if(value.at(0) == '0'){
+      num.insert(0, "0");
+    }
+    else{
+      num.insert(0, "1");
+    }
   return num; 
 }
 
