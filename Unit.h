@@ -32,12 +32,9 @@ class Unit {
     ~Unit() {}
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief function that must be overridden by all children
-    ///
-    /// @param os reference to an ostream
+    /// @brief printing function that must be overridden by all children
     //////////////////////////////////////////////////////////////////////////////////////
-    // TODO: FIND OUT IF WE CAN DO THIS
-    friend std::ostream& operator<<(std::ostream& os, const Unit &u) { return os; }
+    virtual void print() = 0;
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Unit class

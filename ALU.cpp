@@ -164,21 +164,29 @@ print(){
       std::cout << "*********** ALU 1 ***********" << std::endl;
       std::cout << "---Inputs---" << std::endl;
       std::cout << "ALU control: " << bin2hex(control) << std::endl;
+      std::cout << "ALU input 1: " << bin2hex(inputOne) << std::endl;
+      std::cout << "ALU input 2: " << bin2hex(inputTwo) << std::endl;
+      std::cout << "---Outputs---" << std::endl;
+      std::cout << "Zero: " << zero << std::endl;
+      std::cout << "ALU result:  " << bin2hex(ALUresult) << std::endl << std::endl;
       break;
     case 2 :
       std::cout << "*********** ALU 2 ***********" << std::endl;
       std::cout << "---Inputs---" << std::endl;
+      std::cout << "ALU input 1: " << bin2hex(inputOne) << std::endl;
+      std::cout << "ALU input 2: " << bin2hex(inputTwo) << std::endl;
+      std::cout << "---Outputs---" << std::endl;
+      std::cout << "ALU result:  " << bin2hex(ALUresult) << std::endl << std::endl;
       break;
     case 3 :
       std::cout << "*********** ALU 3 ***********" << std::endl;
       std::cout << "---Inputs---" << std::endl;
+      std::cout << "ALU input 1: " << bin2hex(inputOne) << std::endl;
+      std::cout << "ALU input 2: " << bin2hex(inputTwo) << std::endl;
+      std::cout << "---Outputs---" << std::endl;
+      std::cout << "ALU result:  " << bin2hex(ALUresult) << std::endl << std::endl;
       break;
   }
-
-  std::cout << "ALU input 1: " << bin2hex(inputOne) << std::endl;
-  std::cout << "ALU input 2: " << bin2hex(inputTwo) << std::endl;
-  std::cout << "---Outputs---" << std::endl;
-  std::cout << "ALU result:  " << bin2hex(ALUresult) << std::endl << std::endl;
 }
 
 void ALU::
