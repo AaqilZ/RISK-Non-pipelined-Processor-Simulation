@@ -6,24 +6,25 @@
 
 using namespace std;
 
-std::string 
-bin2dec(const std::string& bin){
+string 
+bin2dec(const string& bin){
   int decimal = 0;
-  for(int i = 0; i<bin.length(); i++){
+  for(int i = 0; i < bin.length(); i++){
+    cout << "Decimal value: " << decimal << endl;
     if(bin[i]=='1'){
-      decimal += pow(2, bin.length()-i);
+      decimal += pow(2, bin.length()-i-1);
     }
   }
   return to_string(decimal);
 }
 
 
-std::string 
-bin2hex(const std::string& bin){
-  std::string localBin = bin;
-  std::string hex = "0x";
+string 
+bin2hex(const string& bin){
+  string localBin = bin;
+  string hex = "0x";
   for(size_t i = 0; i < localBin.length() - 3; i+=4){ //This assumes that the bin 
-    std::string dec = localBin.substr(i, i+4);     //numb is in groups of 4 bit
+    string dec = localBin.substr(i, i+4);     //numb is in groups of 4 bit
     dec = bin2dec(dec);
     if(stoi(dec) < 10)
       hex+=dec;
@@ -44,10 +45,10 @@ bin2hex(const std::string& bin){
 }
 
 
-std::string 
-hex2bin(const std::string& hex){
-  std::string nonConstHex = hex;
-  std::string bin = "";
+string 
+hex2bin(const string& hex){
+  string nonConstHex = hex;
+  string bin = "";
   if(hex[0]=='0' && tolower(hex[1])=='x'){nonConstHex = nonConstHex.erase(0,2);}
   for(size_t i = 0; i < nonConstHex.length(); i++){
     switch(tolower(nonConstHex[i])){
@@ -90,17 +91,17 @@ hex2bin(const std::string& hex){
 }
 
 
-std::string 
-signExt(std::string& num, const std::string& value, size_t numDigits = 32){
+string 
+signExt(string& num, const string& value, size_t numDigits = 32){
   while(num.length()<numDigits)
     num.insert(0, value);
   return num; 
 }
 
 
-std::string 
-shiftLeft2(const std::string& value) {
-  std::string bin = "";
+string 
+shiftLeft2(const string& value) {
+  string bin = "";
   if(tolower(value[1])=='x'){
     bin = hex2bin(value);
     bin = bin.erase(0, 2);
@@ -114,13 +115,18 @@ shiftLeft2(const std::string& value) {
   return bin; 
 }
 
-std::string 
-hex2dec(std::string hex){ 
+string 
+hex2dec(string hex){ 
   return bin2dec(hex2bin(hex));
 }
 
-std::string 
+string 
 dec2hex(int dec) { return ""; }
 
 void 
-testUtilities() { return ; }
+testUtilities() { 
+  cout << "Testing Utility Functions" << endl << endl;
+
+  cout << "Testing bin2dec(\"010101\");" << endl;
+  cout << "\t" << bin2dec("010101") << " [Expected: 21]" << endl;
+}

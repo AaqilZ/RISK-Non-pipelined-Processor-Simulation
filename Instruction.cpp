@@ -86,7 +86,6 @@ parseInstruction(string inst){
   else if(type == "j"){
     opcode = "000010";
     s >> arg1;
-    // cout << arg1;
     imm = parseImmediate(arg1);
   }
 }
