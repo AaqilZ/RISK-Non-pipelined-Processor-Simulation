@@ -36,7 +36,8 @@ class Unit {
     ///
     /// @param os reference to an ostream
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::ostream& operator<<(std::ostream& os) = 0;
+    // TODO: FIND OUT IF WE CAN DO THIS
+    friend std::ostream& operator<<(std::ostream& os, const Unit &u) { return os; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Unit class

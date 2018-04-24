@@ -1,5 +1,6 @@
 #include "ALU.h"
 #include "Utilities.h"
+#include <iostream>
 
 std::string ALU::
 operate(std::string control, std::string& arg1, std::string& arg2){
@@ -15,12 +16,14 @@ operate(std::string control, std::string& arg1, std::string& arg2){
     final = ALU::add(arg1, arg2);   // add arg1 and -arg2
   } else if(control == slt){
     int one = stoi(bin2dec(arg1));  // convert arg1 to int for easy comparison
-    int two = stoi(bin2dec(arg2));  // convert arg1 to int for easy comparison
+    int two = stoi(bin2dec(arg2));  // convert arg2 to int for easy comparison
     if(one < two)
       final = "1";
     else
       final = "0";
   }
+
+  setALUresult(final);
 
   return final;
 }
@@ -115,6 +118,10 @@ bitwiseOR(std::string& arg1, std::string& arg2){
 }
 
 void ALU::setControl(bool ALUop1, bool ALUop2, std::string func){
+  setALUop1(ALUop1);
+  setALUop2(ALUop2);
+  setFuncCode(func);
+
   //  lw or sw
   //  00
   if(!ALUop1 && !ALUop2)
@@ -140,6 +147,38 @@ void ALU::setControl(bool ALUop1, bool ALUop2, std::string func){
     if(func == "101010")
       control = "0111"; // alu: slt()
   }
+}
+
+void ALU::
+print(){
+  switch(getUnitNum()){
+    case 1 :
+      std::cout << "*********** ALU Control ***********" << std::endl;
+      std::cout << "---Inputs---" << std::endl;
+      std::cout << "ALUop1: " << ALUop1 << std::endl;
+      std::cout << "ALUop2: " << ALUop2 << std::endl;
+      std::cout << "Function Code: " << bin2hex(funcCode) << std::endl;
+      std::cout << "---Outputs---" << std::endl;
+      std::cout << "ALU control: " << bin2hex(control) << std::endl << std::endl;
+
+      std::cout << "*********** ALU 1 ***********" << std::endl;
+      std::cout << "---Inputs---" << std::endl;
+      std::cout << "ALU control: " << bin2hex(control) << std::endl;
+      break;
+    case 2 :
+      std::cout << "*********** ALU 2 ***********" << std::endl;
+      std::cout << "---Inputs---" << std::endl;
+      break;
+    case 3 :
+      std::cout << "*********** ALU 3 ***********" << std::endl;
+      std::cout << "---Inputs---" << std::endl;
+      break;
+  }
+
+  std::cout << "ALU input 1: " << bin2hex(inputOne) << std::endl;
+  std::cout << "ALU input 2: " << bin2hex(inputTwo) << std::endl;
+  std::cout << "---Outputs---" << std::endl;
+  std::cout << "ALU result:  " << bin2hex(ALUresult) << std::endl << std::endl;
 }
 
 void ALU::
@@ -183,4 +222,3 @@ testALU(){
   else
     std::cout << "bitwiseOR(): Fail" << std::endl;
 }
-
