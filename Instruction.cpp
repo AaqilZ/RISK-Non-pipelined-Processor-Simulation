@@ -1,4 +1,7 @@
 #include "Instruction.h"
+
+#include "Utilities.h"
+
 using namespace std;
 
 #include <sstream>
@@ -84,7 +87,6 @@ parseInstruction(string inst){
     opcode = "000010";
     s >> arg1;
     imm = parseImmediate(arg1);
-    // cout << imm;
   }
 }
 
@@ -101,7 +103,6 @@ parseRegisterNumber(string r){
     subStrLength = (r.length() - subStrStart) - 1;
   }
   string tmp = r.substr(subStrStart, subStrLength);
-  // cout << tmp;
   return atoi(tmp.c_str());
 }
 
@@ -109,14 +110,18 @@ int
 Instruction::
 parseOffset(string o){
   int splitInd = o.find('(');
-  // cout << o.substr(0, splitInd) << endl;
+  if(o.find("x") != string::npos){
+    return parseImmediate(o.substr(0,splitInd).c_str());
+  }
   return atoi(o.substr(0,splitInd).c_str());
 }
 
 int
 Instruction::
 parseImmediate(string i){
-  // TODO MAKE THIS HANDLE HEX VALUES
+  if(i.find("x") != string::npos){
+    return atoi(hex2dec(i).c_str());
+  }
   return atoi(i.c_str());
 }
 
