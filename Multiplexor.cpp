@@ -1,4 +1,5 @@
 #include "Multiplexor.h"
+#include "Utilities.h"
 
 std::string Multiplexor::
 operate(bool control, std::string& arg1, std::string& arg2) {
