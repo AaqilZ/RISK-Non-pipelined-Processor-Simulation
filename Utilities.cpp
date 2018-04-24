@@ -23,7 +23,7 @@ bin2hex(const string& bin){
   string localBin = bin;
   string hex = "0x";
   for(size_t i = 0; i < localBin.length() - 3; i+=4){ //This assumes that the bin 
-    string dec = localBin.substr(i, i+4);     //numb is in groups of 4 bit
+    string dec = localBin.substr(i,4);     //numb is in groups of 4 bit
     dec = bin2dec(dec);
     if(stoi(dec) < 10)
       hex+=dec;
@@ -121,12 +121,23 @@ shiftLeft2(const string& value) {
 }
 
 string 
-hex2dec(string hex){ 
+hex2dec(string hex){
   return bin2dec(hex2bin(hex));
 }
 
 string 
-dec2hex(int dec) { return ""; }
+dec2hex(int dec) { 
+  string bin = "";
+  while(dec > 0){
+    if((dec % 2) == 1){
+      bin = "1" + bin;
+    }
+    else 
+      bin = "0" + bin;
+    dec /= 2;
+  }
+  return bin2hex(bin);
+}
 
 void 
 testUtilities() { 
@@ -144,5 +155,16 @@ testUtilities() {
   cout << "\t" << hex2bin("af24") << " [Expected: 1010111100100100]" << endl << endl;
 
   cout << "Testing signExt(\"0010010\", 10);" << endl;
-  cout << "\t" << signExt("0010010", 10) << " [Expected: 0000010010]" << endl << endl;
+  cout << "\t" << signExt("0010010", 10) << " [Expected: 0000010010]" << endl;
+  cout << "Testing signExt(\"11001100\", 16);" << endl;
+  cout << "\t" << signExt("11001100", 16) << " [Expected: 1111111111001100]" << endl << endl;
+
+  cout << "Testing shiftLeft2(\"0110101\");" << endl;
+  cout << "\t" << shiftLeft2("0110101") << " [Expected: 1010100]" << endl << endl;
+
+  cout << "Testing hex2dec(\"0x34bf\");" << endl;
+  cout << "\t" << hex2dec("0x34bf") << " [Expected: 13503]" << endl << endl;
+
+  cout << "Testing dec2hex(43289);" << endl;
+  cout << "\t" << dec2hex(43289) << " [Expected: a919]" << endl << endl;
 }
