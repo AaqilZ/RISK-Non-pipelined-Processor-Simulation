@@ -40,7 +40,7 @@ std::string hex2bin(const std::string& hex);
 /// @param value the value to be sign extended
 /// @param numDigits the number of digits to include in the return string; default 32
 //////////////////////////////////////////////////////////////////////////////////////////
-std::string signExt(std::string& num, const std::string& value, int numDigits);
+std::string signExt(const std::string& value, size_t numDigits);
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief function to shift left 2

@@ -10,7 +10,6 @@ string
 bin2dec(const string& bin){
   int decimal = 0;
   for(int i = 0; i < bin.length(); i++){
-    cout << "Decimal value: " << decimal << endl;
     if(bin[i]=='1'){
       decimal += pow(2, bin.length()-i-1);
     }
@@ -92,9 +91,10 @@ hex2bin(const string& hex){
 
 
 string 
-signExt(string& num, const string& value, size_t numDigits = 32){
+signExt(const string& value, size_t numDigits = 32){
+  string num = value;
   while(num.length()<numDigits)
-    num.insert(0, value);
+    num.insert(0, "0");
   return num; 
 }
 
@@ -131,6 +131,13 @@ testUtilities() {
   cout << "\t" << bin2dec("010101") << " [Expected: 21]" << endl << endl;
 
   cout << "Testing bin2hex(\"10100011\");" << endl;
-  cout << "\t" << bin2hex("10100011") << endl << endl;
-  
+  cout << "\t" << bin2hex("10100011") << " [Expected: 0xa3]" << endl << endl;
+
+  cout << "Testing hex2bin(\"0xaf24\");" << endl;
+  cout << "\t" << hex2bin("0xaf24") << " [Expected: 1010111100100100]" << endl;
+  cout << "Testing hex2bin(\"af24\");" << endl;
+  cout << "\t" << hex2bin("af24") << " [Expected: 1010111100100100]" << endl << endl;
+
+  cout << "Testing signExt(\"0010010\", 10);" << endl;
+  cout << "\t" << signExt("0010010", 10) << " [Expected: 0000010010]" << endl << endl;
 }
