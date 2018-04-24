@@ -128,5 +128,9 @@ testUtilities() {
   cout << "Testing Utility Functions" << endl << endl;
 
   cout << "Testing bin2dec(\"010101\");" << endl;
-  cout << "\t" << bin2dec("010101") << " [Expected: 21]" << endl;
+  cout << "\t" << bin2dec("010101") << " [Expected: 21]" << endl << endl;
+
+  cout << "Testing bin2hex(\"10100011\");" << endl;
+  cout << "\t" << bin2hex("10100011") << endl << endl;
+  
 }
