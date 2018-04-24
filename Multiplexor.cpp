@@ -40,8 +40,8 @@ print(){
 
   std::cout << "---Inputs---" << std::endl;
   std::cout << "Control Signal: " << controlSignal << std::endl;
-  std::cout << "Option 1: " << option1 << std::endl;
-  std::cout << "Option 2: " << option2 << std::endl;
+  std::cout << "Option 1: " << bin2hex(option1) << std::endl;
+  std::cout << "Option 2: " << bin2hex(option2) << std::endl;
   std::cout << "---Outputs---" << std::endl;
-  std::cout << "Selected: " << result << std::endl << std::endl;
+  std::cout << "Selected: " << bin2hex(result) << std::endl << std::endl;
 }
