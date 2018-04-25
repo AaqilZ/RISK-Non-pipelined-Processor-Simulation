@@ -1,4 +1,5 @@
 #include "Control.h"
+#include "Utilities.h"
 #include <string>
 
 void
@@ -21,6 +22,8 @@ Control::clear(){
 void
 Control::setControlLines(const Instruction& inst){
   std::string op = inst.getOpcode();
+
+  opCode = op;
 
   // ADD + SUB + SLT
   if(op == "000000"){ 
@@ -58,4 +61,22 @@ Control::setControlLines(const Instruction& inst){
     regDst=false; regWrite=false; ALUSrc=false; memWrite=false; memRead=false; 
     memToReg=true; ALUOp0=true; ALUOp1=false; branch=true; ALUControl="0110"; jump=false; 
   }
+}
+
+void
+Control::print(){
+  std::cout << "*********** Control Unit ***********" << std::endl;
+  std::cout << "---Inputs---" << std::endl;
+  std::cout << "Op Code  : " << bin2hex(getOpCode()) << std::endl;
+  std::cout << "---Outputs---" << std::endl;
+  std::cout << "regDst   : " << getRegDst() << std::endl;
+  std::cout << "jump     : " << getJump() << std::endl;
+  std::cout << "branch   : " << getBranch() << std::endl;
+  std::cout << "memRead  : " << getMemRead() << std::endl;
+  std::cout << "memToReg : " << getMemToReg() << std::endl;
+  std::cout << "ALUOp0   : " << getALUOp0() << std::endl;
+  std::cout << "ALUOp1   : " << getALUOp1() << std::endl;
+  std::cout << "memWrite : " << getMemWrite() << std::endl;
+  std::cout << "ALUSrc   : " << getALUSrc() << std::endl;
+  std::cout << "regWrite : " << getRegWrite() << std::endl << std::endl;
 }

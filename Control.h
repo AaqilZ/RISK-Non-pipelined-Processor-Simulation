@@ -22,6 +22,7 @@ class Control : Unit {
     bool  ALUSrc   {false};           ///< false: 2nd ALU op from 2nd reg file output; true: 2nd ALU op is sign extended 16 bits of instruction
     bool  regWrite {false};           ///< write to reg with value on Write data input
     std::string ALUControl{""};               ///< control signal for main ALU (4 digits)
+    std::string opCode;               ///< stores the op code that is passed in and used to set the controls
 
   public:
     //////////////////////////////////////////////////////////////////////////////////////
@@ -99,6 +100,10 @@ class Control : Unit {
     bool getRegWrite() { return regWrite; }
 
     //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief Gets the op code
+    std::string getOpCode() { return opCode; }
+
+    //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Get ALUControl control value
     std::string getALUControl() { return ALUControl; }
 
@@ -108,7 +113,7 @@ class Control : Unit {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief printing function
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual void print() {}
+    virtual void print();
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Control class
