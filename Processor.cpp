@@ -6,8 +6,19 @@ using namespace std;
 #include <string>
 
 Processor::
-Processor() : Unit("Processor") {
+Processor() : Unit("Processor") { 
+}
 
+void Processor::
+process() {
+	std::string initialPC =  programCounter.getPC();
+  while(stoi(programCounter.getPC()) <= stoi(initialPC)+InstructionData.size()){
+    fetch();
+    decode();
+    execute();
+    memory();
+    writeback();
+  }
 }
 
 void Processor::
@@ -38,4 +49,12 @@ print(){
   control.print();
   registerFile.print();
   programCounter.print();
+}
+
+void Processor::
+fetch() { 
+	currentInstruction = InstructionData.at(programCounter.getPC());
+	std::string currentPC = programCounter.getPC();
+	std::string four = "00000000000000000000000000000100";
+  aluOne.add(currentPC, four);
 }
