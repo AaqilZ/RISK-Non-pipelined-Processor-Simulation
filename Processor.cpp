@@ -12,7 +12,7 @@ Processor() : Unit("Processor") {
 
 void Processor::
 process() {
-	std::string initialPC =  programCounter.getPC();
+  std::string initialPC =  programCounter.getPC();
   while(stoi(programCounter.getPC()) <= stoi(initialPC)+InstructionData.size()){
     fetch();
     decode();
@@ -24,19 +24,19 @@ process() {
 
 void Processor::
 print(){
-	///@TODO Print instruction memory
-	std::cout << "*********** Data Memory ***********" << std::endl;
+  ///@TODO Print instruction memory
+  std::cout << "*********** Data Memory ***********" << std::endl;
   for (std::pair<std::string, std::string> element : MemoryData)
-	{
-		std::cout << element.first << " : " << element.second << std::endl << std::endl;
-	}
-
-	std::cout << "*********** Register Contents ***********" << std::endl;
-	int regCount = 0;
-	for(auto i = registerContents.begin(); i != registerContents.end(); ++i)
   {
-  	std::cout << "$" << regCount << " : " << *i << std::endl << std::endl;
-  	regCount++;
+    std::cout << element.first << " : " << element.second << std::endl << std::endl;
+  }
+
+  std::cout << "*********** Register Contents ***********" << std::endl;
+  int regCount = 0;
+  for(auto i = registerContents.begin(); i != registerContents.end(); ++i)
+  {
+    std::cout << "$" << regCount << " : " << *i << std::endl << std::endl;
+    regCount++;
   }
 
   aluOne.print();
@@ -54,9 +54,9 @@ print(){
 
 void Processor::
 fetch() { 
-	currentInstruction = InstructionData.at(programCounter.getPC());
-	std::string currentPC = programCounter.getPC();
-	std::string four = "00000000000000000000000000000100";
+  currentInstruction = InstructionData.at(programCounter.getPC());
+  std::string currentPC = programCounter.getPC();
+  std::string four = "00000000000000000000000000000100";
   aluOne.add(currentPC, four);
 }
 
@@ -100,4 +100,33 @@ execute(){
   muxJump.operate(control.getJump(), (programCounter.getPC()+shiftLeft2(currentInstruction.getBits(25, 0), false)), muxBranch.getResult());
   //   e. Send result of MUX4 to PC?
   programCounter.setPC(muxJump.getResult());
+}
+
+void Processor::
+memory(){
+  // Memory:
+  //   a. Data Memory gets MemWrite and MemRead and Result of ALU3(address)
+  //      and read data2(write data).
+  ///@TODO DATA MEMORY NEEDS TO BE DONE 
+  if (control.getMemWrite()) {
+    // do the things
+    MemoryData[aluThree.getALUresult()] = registerFile.getReadData2();
+  }
+
+  
+}
+
+void Processor::
+writeback(){
+  // Writeback:
+  //   b. MUX3 gets MemtoReg and Read data(from data memory) and result of ALU3
+  ///@TODO DO WHAT IS WRITTEN ABOVE  
+  muxMemToReg.operate(control.getMemToReg(), MemoryData.at(aluThree.getALUresult()), aluThree.getALUresult());
+
+  //   a. Write data in register file gets the result of MUX3.
+  ///@TODO need to have functionality in registerFile to check boolean before 
+  //       writing to the write data reg
+  registerFile.setWriteData(muxMemToReg.getResult());
+
+  registerContents[registerFile.getWriteReg()] = registerFile.getWriteData();
 }
