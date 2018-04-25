@@ -40,11 +40,9 @@ class ProgramCounter : public Unit {
     void setPC(std::string& addr) { instrAddr = addr; }
 
     //////////////////////////////////////////////////////////////////////////////////////
-    /// @brief overload operator << to output the current state of the program counter
-    ///
-    /// @param os reference to ostream
+    /// @brief printing function
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::ostream& operator<<(std::ostream& os) { return os; }
+    virtual void print();
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the ProgramCounter class
