@@ -8,7 +8,7 @@
 /// @brief Class for constrol unit
 /// @note TODO May not need getters in this class
 //////////////////////////////////////////////////////////////////////////////////////////
-class Control : Unit {
+class Control : public Unit {
   private:
     bool  regDst   {false};           ///< false: write reg # from rt; true: write reg from rd
     bool  jump     {false};           ///< whether to have PC jump

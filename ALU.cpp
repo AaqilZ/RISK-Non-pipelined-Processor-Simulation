@@ -67,21 +67,21 @@ add(std::string& arg1, std::string& arg2) {
   return result;
 }
 
-std::string ALU::
-twosComp(std::string& arg1){
-  int carry = 1;
+// std::string ALU::
+// twosComp(std::string& arg1){
+//   int carry = 1;
   
-  for (int i = arg1.length(); i >= 0; i-- ) {
-    // flip 0 to 1 or vice versa using XOR
-    arg1[i] = (arg1[i] ^ 1); 
-    // add carry from last loop through       
-    arg1[i] += carry;
-    // save the overflow in the carry variable
-    carry = (arg1[i] & 2) >> 1;     
-  }
+//   for (int i = arg1.length(); i >= 0; i-- ) {
+//     // flip 0 to 1 or vice versa using XOR
+//     arg1[i] = (arg1[i] ^ 1); 
+//     // add carry from last loop through       
+//     arg1[i] += carry;
+//     // save the overflow in the carry variable
+//     carry = (arg1[i] & 2) >> 1;     
+//   }
   
-  return arg1;
-}
+//   return arg1;
+// }
 
 std::string ALU::
 bitwiseAND(std::string& arg1, std::string& arg2){
