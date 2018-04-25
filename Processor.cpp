@@ -89,9 +89,9 @@ decode(){
   // cout << "Printing ALU1 result" << aluOne.getALUresult() << endl;
   // cout << bin2hex(shiftLeft2(signExtendedNum, true)) << endl;
 
-  string sillyString = "0010";
+  string addCode = "0010";
 
-  aluTwo.operate(sillyString, aluOne.getALUresult(), bin2hex(shiftLeft2(signExtendedNum, true)));   
+  aluTwo.operate(addCode, aluOne.getALUresult(), bin2hex(shiftLeft2(signExtendedNum, true)));   
   // aluTwo.print();
   cout << "Decode 9  Good through here" << endl;
                                                                               // true = maintain number of bits. 
