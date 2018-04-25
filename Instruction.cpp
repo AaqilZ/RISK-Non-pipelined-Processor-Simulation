@@ -176,9 +176,10 @@ parseImmediate(string i){
 
 string 
 Instruction::
-getBits(int first, int last){
-  cout << endl << endl << binStr.substr(first, last - first) << endl << endl;
-  return binStr.substr(first, last - first);
+getBits(int max, int min){
+  
+  cout << endl << endl << binStr.substr(binStr.length() - max, max - min + 1) << endl << endl;
+  return binStr.substr(binStr.length() - max, max - min + 1);
 }
 
 void
@@ -252,6 +253,7 @@ testInstruction(){
   cout << "\t\tbinary encoding: " << b.binStr << endl;
   cout << "\t\thex encoding: " << bin2hex(b.binStr) << endl; 
 
+  i.getBits(15,11);
 }
 
 const ostream&
