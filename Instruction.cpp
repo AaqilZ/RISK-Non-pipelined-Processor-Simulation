@@ -182,9 +182,10 @@ parseImmediate(string i){
 string 
 Instruction::
 getBits(int max, int min){
-  
-  cout << endl << endl << binStr.substr(binStr.length() - max, max - min + 1) << endl << endl;
-  return binStr.substr(binStr.length() - max, max - min + 1);
+    //cout << "max: " << max << "min: " << min << endl;
+    //cout << "index of substring: " << binStr.length() - max - 1 << endl;
+    //cout << binStr << endl;
+    return binStr.substr(binStr.length() - max - 1, max - min + 1);
 }
 
 void

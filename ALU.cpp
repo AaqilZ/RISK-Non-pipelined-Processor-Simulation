@@ -7,25 +7,27 @@ operate(std::string control, std::string arg1, std::string arg2){
   std::string add = "0010";
   std::string subtract = "0110";
   std::string slt = "0111";
-  std::string final = "";
+  std::string result = "";
 
   if(control == add)
-    final = ALU::add(arg1, arg2);
+    result = ALU::add(arg1, arg2);
   else if(control == subtract){
     arg2 = twosComp(arg2);          // make arg2 a negative
-    final = ALU::add(arg1, arg2);   // add arg1 and -arg2
+    result = ALU::add(arg1, arg2);   // add arg1 and -arg2
   } else if(control == slt){
     int one = stoi(bin2dec(arg1));  // convert arg1 to int for easy comparison
     int two = stoi(bin2dec(arg2));  // convert arg2 to int for easy comparison
     if(one < two)
-      final = "1";
+      result = "1";
     else
-      final = "0";
+      result = "0";
   }
 
-  setALUresult(final);
 
-  return final;
+  std::cout << "Control: " << control << std::endl << "Arg1: " << arg1 << std::endl << "Arg2: " << arg2 << std::endl;
+  setALUresult(result);
+
+  return result;
 }
 
 

@@ -45,33 +45,50 @@ void Processor::
 decode(){
   //Decode:
   //   a. Control gets Instruction. 
-  cout << "1" << endl;
+  cout << "Decode 1" << endl;
   control.setControlLines(currentInstruction);
-  cout << "2" << endl;
+  cout << "Decode 2" << endl;
   //   b. MUX1 gets RegDst and instruction 20-16 and 15-11
-  cout << currentInstruction.getBinStr() << endl;
-  muxRegDist.operate(control.getRegDst(), currentInstruction.getBits(15, 11), currentInstruction.getBits(20, 16));
-  cout << "3" << endl;
+  control.print();
+  // cout << "current bits 15, 11: " << currentInstruction.getBits(15, 11) << endl;
+  // print();
+
+  cout << endl << endl << endl;
+
+  // cout << "Inst bin string: " << currentInstruction.getBinStr() << endl;
+  // cout << "get bits: " << currentInstruction.getBits(15,11) << endl;
+  // cout << "reg number: " << stoi(bin2dec(currentInstruction.getBits(15,11))) << endl;
+  // cout << "get bits: " << currentInstruction.getBits(20,16) << endl;
+  // cout << "reg number: " << stoi(bin2dec(currentInstruction.getBits(20,16))) << endl;
+
+  // cout << "reg contents: " << registerContents.at(stoi(bin2dec(currentInstruction.getBits(15, 11)))) << endl;
+  // cout << "reg contents: " << registerContents.at(stoi(bin2dec(currentInstruction.getBits(20, 16)))) << endl;
+  
+  muxRegDist.operate(control.getRegDst(), registerContents.at(stoi(bin2dec(currentInstruction.getBits(15, 11)))), registerContents.at(stoi(bin2dec(currentInstruction.getBits(20, 16)))));
+  
+  // muxRegDist.print();
+
+  cout << "Decode 3" << endl;
   //   c. Register things: 
   //       - Register gets RegWrite
   registerFile.setRegWrite(control.getRegDst());
-  cout << "4" << endl;
+  cout << "Decode 4" << endl;
   //       - Read Register 1 gets instruction 25-21
   registerFile.setReadReg1(stoi(bin2dec(currentInstruction.getBits(25, 21))));
-  cout << "5" << endl;
+  cout << "Decode 5" << endl;
   //       - Read Register 2 gets instruction 20-16
   registerFile.setReadReg2(stoi(bin2dec(currentInstruction.getBits(20, 16))));
-  cout << "6" << endl;
+  cout << "Decode 6" << endl;
   //       - Write Register gets MUX1 return thing.
   registerFile.setWriteReg(stoi(bin2dec(muxRegDist.getResult())));
-  cout << "7" << endl;
+  cout << "Decode 7" << endl;
   //   d. Sign extend instruction 15-0 and send it to shift left 2 while
   //      maintaining the number of bits. Send the result of this and 
   //      ALU1 to ALU2.
   signExtendedNum = signExt(currentInstruction.getBits(15, 0));
-  cout << "8" << endl;
+  cout << "Decode 8" << endl;
   aluTwo.operate("0010", aluOne.getALUresult(), shiftLeft2(signExtendedNum, true)); //  alu1Result will magically come from somewhere.
-  cout << "9" << endl;
+  cout << "Decode 9" << endl;
                                                                               // true = maintain number of bits. 
 }
 
@@ -79,19 +96,30 @@ void Processor::
 execute(){
   // Execute: 
   //   a. MUX2 gets ALUSrc and Read Data 2 and the 32 bit sign extended number
+  cout << "signExtNum: " << signExtendedNum << endl;
+  cout << "regFile: " << registerFile.getReadData2() << endl;
   muxALUSrc.operate(control.getALUSrc(), signExtendedNum, registerFile.getReadData2());
+  cout << "Execute 1" << endl;
+  
   //   b. ALU3 gets ALU Control and Read Data 1 and result of MUX2
   aluThree.setControl(control.getALUOp0(), control.getALUOp1(), currentInstruction.getFuncField());
+  cout << "Execute 2" << endl;  
+  cout << "aluMux: " << muxALUSrc.getResult() << endl;
+  cout << "registerFile: " << registerFile.getReadData1() << endl;
   aluThree.operate(control.getALUControl(), muxALUSrc.getResult(), registerFile.getReadData1());
+  cout << "Execute 3" << endl;
   //   c. send the result of ALU1 and ALU2 and (branch AND zero from ALU3) 
   //      to MUX5.
   muxBranch.operate((control.getBranch()&&aluThree.getZero()), aluTwo.getALUresult(), aluOne.getALUresult());
   //   d. Shift left 2 takes instruction 25-0 and shifts 2(increasing 2 bits)
   //      and concatenate those 28 bits with the bits from ALU1. Send this(jump
   //      address) and result of MUX5 to MUX4.
+  cout << "Execute 4" << endl;
   muxJump.operate(control.getJump(), (programCounter.getPC()+shiftLeft2(currentInstruction.getBits(25, 0), false)), muxBranch.getResult());
   //   e. Send result of MUX4 to PC?
+  cout << "Execute 5" << endl;
   programCounter.setPC(muxJump.getResult());
+  cout << "Execute 6" << endl;  
 }
 
 void Processor::
@@ -99,28 +127,40 @@ memory(){
   // Memory:
   //   a. Data Memory gets MemWrite and MemRead and Result of ALU3(address)
   //      and read data2(write data).
-  ///@TODO DATA MEMORY NEEDS TO BE DONE 
-  if (control.getMemWrite()) {
-    // do the things
-    MemoryData[aluThree.getALUresult()] = registerFile.getReadData2();
-  }
+  /// @TODO DATA MEMORY NEEDS TO BE DONE 
+  cout << "Memory 0" << endl;
 
-  
+  if (control.getMemWrite()) {
+    cout << "Memory 1" << endl;  
+    // do the things
+    cout << aluThree.getALUresult() << endl;
+    cout << bin2hex(aluThree.getALUresult()) << endl;
+    MemoryData[bin2hex(aluThree.getALUresult())] = registerFile.getReadData2();
+    cout << "Memory 2" << endl;
+  }
+  cout << "Memory 3" << endl;
 }
 
 void Processor::
 writeback(){
+  cout << "Writeback 0" << endl;
   // Writeback:
   //   b. MUX3 gets MemtoReg and Read data(from data memory) and result of ALU3
   ///@TODO DO WHAT IS WRITTEN ABOVE  
-  muxMemToReg.operate(control.getMemToReg(), MemoryData.at(aluThree.getALUresult()), aluThree.getALUresult());
+  cout << aluThree.getALUresult() << endl;
+  cout << bin2hex(aluThree.getALUresult()) << endl;
+  muxMemToReg.operate(control.getMemToReg(), MemoryData.at(bin2hex(aluThree.getALUresult())), aluThree.getALUresult());
+  cout << "Writeback 1" << endl;
+  
 
   //   a. Write data in register file gets the result of MUX3.
   ///@TODO need to have functionality in registerFile to check boolean before 
   //       writing to the write data reg
   registerFile.setWriteData(muxMemToReg.getResult());
+  cout << "Writeback 2" << endl;
 
   registerContents[registerFile.getWriteReg()] = registerFile.getWriteData();
+  cout << "Writeback 3" << endl;
 }
 
 
