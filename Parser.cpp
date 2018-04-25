@@ -1,5 +1,6 @@
 #include "Parser.h"
 #include "Instruction.h"
+#include "Utilities.h"
 
 #include <fstream>
 #include <iostream>
@@ -97,7 +98,7 @@ parseMIPS(unordered_map<string, Instruction>& mem){
 
   // set variables to start
   string input;
-  long address = 67108864;
+  long address = 4194304;
   // while inputFile is good
   // while(inputFile.good()){
   // getline(inputFile, input);    
@@ -121,7 +122,7 @@ parseMIPS(unordered_map<string, Instruction>& mem){
       Instruction i;
       i.parseInstruction(input);
       // add it to map with address as key TODO this should add at hex address
-      mem[to_string(address)] = i;
+      mem[dec2hex(address)] = i;
       // increment address
       address += 4;
     }

@@ -3,13 +3,14 @@
 #include <bitset>
 #include <iostream>
 #include <math.h>
+#include <sstream>
 
 using namespace std;
 
 string 
 bin2dec(const string& bin){
   int decimal = 0;
-  for(int i = 0; i < bin.length(); i++){
+  for(size_t i = 0; i < bin.length(); i++){
     if(bin[i]=='1'){
       decimal += pow(2, bin.length()-i-1);
     }
@@ -20,6 +21,7 @@ bin2dec(const string& bin){
 
 string 
 bin2hex(const string& bin){
+  if(bin.length()==0)return bin;
   string localBin = bin;
   string hex = "0x";
   for(size_t i = 0; i < localBin.length() - 3; i+=4){ //This assumes that the bin 
@@ -129,7 +131,13 @@ hex2dec(string hex){
 
 string 
 dec2hex(int dec) { 
-  return bin2hex(dec2bin(dec));
+  std::stringstream ss;
+  ss << std::hex << dec; // int decimal_value
+  std::string res ( ss.str() );
+  while(res.length()<8)res="0"+res;
+  res = "0x" + res;
+  
+  return res;
 }
 
 string

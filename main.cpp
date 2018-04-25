@@ -3,7 +3,9 @@
 
 #include "Parser.h"
 #include "Processor.h"
+#include <iostream>
 
+using namespace std;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Main function to drive the processor
@@ -19,5 +21,8 @@ int main() {
   parser.parseRegisterFile(processor.getRegisterData());
   parser.parseMemory(processor.getMemoryData());
   
+//  processor.print();
+  processor.process();
+   
   return 0;
 }

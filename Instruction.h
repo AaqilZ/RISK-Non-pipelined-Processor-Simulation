@@ -10,8 +10,8 @@ enum type{RTYPE, ITYPE, JTYPE};
 //////////////////////////////////////////////////////////////////////////////////////////
 class Instruction {
   private:
-    std::string binStr;                 ///< binary string of instruction
-    std::string opcode;                 ///< stores the opcode of the instruction
+    std::string binStr{""};                 ///< binary string of instruction
+    std::string opcode{""};                 ///< stores the opcode of the instruction
     int rs = -1;                        ///< stores the rs register
     int rt = -1;                        ///< stores the rt register
     int rd = -1;                        ///< stores the rd register
@@ -81,6 +81,14 @@ class Instruction {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief gets the opcode of the function
     std::string getOpcode() const { return opcode; }
+
+
+    ////@TODO
+
+    std::string getBinStr(){return binStr;}
+
+
+
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief gets the opcode of the function

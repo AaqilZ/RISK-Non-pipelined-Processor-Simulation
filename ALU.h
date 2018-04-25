@@ -8,14 +8,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 class ALU : public OperationUnit {
   private:
-    std::string control;      ///< control signal that will tell the ALU what operation to do
-    std::string inputOne;     ///< first input for ALU
-    std::string inputTwo;     ///< second input for ALU
-    std::string ALUresult;    ///< the result of the intended ALU operation
-    std::string funcCode;     ///< the function code for ALUcontrol
-    bool ALUop1;              ///< the ALUop1 control signal
-    bool ALUop2;              ///< the ALUop2 control signal
-    bool zero;                ///< the zero contorl signal
+    std::string control{""};      ///< control signal that will tell the ALU what operation to do
+    std::string inputOne{""};     ///< first input for ALU
+    std::string inputTwo{""};     ///< second input for ALU
+    std::string ALUresult{""};    ///< the result of the intended ALU operation
+    std::string funcCode{""};     ///< the function code for ALUcontrol
+    bool ALUop1{false};              ///< the ALUop1 control signal
+    bool ALUop2{false};              ///< the ALUop2 control signal
+    bool zero{""};                ///< the zero contorl signal
     
   public:
     //////////////////////////////////////////////////////////////////////////////////////

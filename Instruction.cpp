@@ -95,12 +95,15 @@ parseInstruction(string inst){
     imm = parseImmediate(arg1);
     type = JTYPE;
   }
+  computeBinaryEncoding();
 }
 
 void
 Instruction::
 computeBinaryEncoding(){
   binStr+= opcode;
+      cout << binStr << endl;
+      cout << "The cake is a lie." << endl;
   switch (type){
     case(RTYPE):
       binStr += unsignedExt(dec2bin(rs), 5);
@@ -110,6 +113,8 @@ computeBinaryEncoding(){
       binStr += func;
       break;
     case(ITYPE):
+      cout << binStr << endl;
+      cout << "The cake is a lie." << endl;
       binStr += unsignedExt(dec2bin(rs), 5);
       binStr += unsignedExt(dec2bin(rt), 5);
       binStr += dec2bin(imm,16);

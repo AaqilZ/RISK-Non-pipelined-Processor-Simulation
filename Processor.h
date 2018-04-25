@@ -35,7 +35,9 @@ class Processor : public Unit {
     Control control;                                                ///< Main Control unit, also contains ALU Controller
     RegisterFile registerFile;                                      ///< RegisterFile to store registers and writes data
     ProgramCounter programCounter;                                  ///< ProgramCounter to keep track of the address of the instruction being executed
-    Instruction& currentInstruction{InstructionData.at(programCounter.getPC())};                                ///< a reference to the instruction that is currently being executed
+    
+    Instruction i{};
+    Instruction& currentInstruction{i};                                ///< a reference to the instruction that is currently being executed
     std::string signExtendedNum;                                    ///< the sign extended version of instruction bits 15-0
 
   public:

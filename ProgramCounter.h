@@ -11,7 +11,7 @@ class ALU;
 class ProgramCounter : public Unit {
 
   private:
-    std::string instrAddr;                   ///< current instruction address
+    std::string instrAddr{"0x00400000"};                   ///< current instruction address
 
   public:
     //////////////////////////////////////////////////////////////////////////////////////

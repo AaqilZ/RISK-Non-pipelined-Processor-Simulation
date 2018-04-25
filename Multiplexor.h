@@ -11,10 +11,10 @@
 
 class Multiplexor : public OperationUnit {
   private:
-    bool controlSignal;   ///< the control signal for the mux
-    std::string option1;  ///< option 1 for the mux to select
-    std::string option2;  ///< option 2 for the mux to select
-    std::string result;   ///< the option that the mux selects
+    bool controlSignal{false};   ///< the control signal for the mux
+    std::string option1{""};  ///< option 1 for the mux to select
+    std::string option2{""};  ///< option 2 for the mux to select
+    std::string result{""};   ///< the option that the mux selects
 
   public:
     //////////////////////////////////////////////////////////////////////////////////////
