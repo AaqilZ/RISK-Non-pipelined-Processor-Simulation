@@ -174,6 +174,13 @@ parseImmediate(string i){
   return result;
 }
 
+string 
+Instruction::
+getBits(int first, int last){
+  cout << endl << endl << binStr.substr(first, last - first) << endl << endl;
+  return binStr.substr(first, last - first);
+}
+
 void
 Instruction::
 testInstruction(){
