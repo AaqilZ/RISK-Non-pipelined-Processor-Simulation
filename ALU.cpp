@@ -2,38 +2,71 @@
 #include "Utilities.h"
 #include <iostream>
 
+/*
+INPUT: four bit binary control line, hex result of alu1, hex result of shift left2
+OUTPUT: Hex
+*/
 std::string ALU::
-operate(std::string control, std::string arg1, std::string arg2){
+operate(std::string c, std::string arg1, std::string arg2){
   std::string add = "0010";
   std::string subtract = "0110";
   std::string slt = "0111";
   std::string result = "";
 
-  if(control == add)
+  // std::cout << "Input control: " << c << std::endl;
+  control = c;
+  inputOne = arg1;
+  inputTwo = arg2;
+  
+  // std::cout << "control " << control << std::endl;
+  // std::cout << "arg1 " << inputOne << std::endl;
+  // std::cout << "arg2 " << inputTwo << std::endl;
+
+  if(control == add){
+    // std::cout << "printing hex conversions: " << hex2bin(arg1) << " " << hex2bin(arg2) << std::endl;
     result = ALU::add(arg1, arg2);
+  }
   else if(control == subtract){
     arg2 = twosComp(arg2);          // make arg2 a negative
     result = ALU::add(arg1, arg2);   // add arg1 and -arg2
   } else if(control == slt){
-    int one = stoi(bin2dec(arg1));  // convert arg1 to int for easy comparison
-    int two = stoi(bin2dec(arg2));  // convert arg2 to int for easy comparison
+    int one = stoi(hex2dec(arg1));  // convert arg1 to int for easy comparison
+    int two = stoi(hex2dec(arg2));  // convert arg2 to int for easy comparison
     if(one < two)
       result = "1";
+    else if ( one == two )
+      zero = true;
     else
       result = "0";
   }
 
 
-  std::cout << "Control: " << control << std::endl << "Arg1: " << arg1 << std::endl << "Arg2: " << arg2 << std::endl;
-  setALUresult(result);
+  // std::cout << "Control: " << control << std::endl << "Arg1: " << arg1 << std::endl << "Arg2: " << arg2 << std::endl;
+  ALUresult = result;
 
   return result;
 }
 
-
+/*
+Input: Hex
+Output: Hex
+*/
 std::string ALU::
-add(std::string& arg1, std::string& arg2) { 
-  std::string result;             // the final string that will be returned
+add(std::string arg1, std::string arg2) { 
+
+  // std::cout << "add arg1 " << arg1 << std::endl;
+  // std::cout << "add arg2 " << arg2 << std::endl;
+
+  arg1 = hex2bin(arg1);
+  arg2 = hex2bin(arg2);
+
+  setControl("0010");
+  setInputOne(arg1);
+  setInputTwo(arg2);
+  
+  // std::cout << "add arg1(bin expected) " << arg1 << std::endl;
+  // std::cout << "add arg2(bin expected) " << arg2 << std::endl;
+  std::string result{""};             // the final string that will be returned
  
   int length = arg1.length();     // get the length of the string
  
@@ -65,8 +98,9 @@ add(std::string& arg1, std::string& arg2) {
   // carry the 1 one last time if necessary by adding 1 to front of result string
   if (carry)
     result = '1' + result;
- 
-  return result;
+  setALUresult(bin2hex(result));
+  // std::cout << "Result: " << bin2hex(result) << std::endl;
+  return bin2hex(result);
 }
 
 // std::string ALU::
@@ -154,7 +188,7 @@ void ALU::setControl(bool ALUop1, bool ALUop2, std::string func){
 void ALU::
 print(){
   switch(getUnitNum()){
-    case 1 :
+    case 3 :
       std::cout << "*********** ALU Control ***********" << std::endl;
       std::cout << "---Inputs---" << std::endl;
       std::cout << "ALUop1: " << ALUop1 << std::endl;
@@ -163,30 +197,32 @@ print(){
       std::cout << "---Outputs---" << std::endl;
       std::cout << "ALU control: " << bin2hex(control) << std::endl << std::endl;
 
-      std::cout << "*********** ALU 1 ***********" << std::endl;
+      std::cout << "*********** ALU 3 ***********" << std::endl;
       std::cout << "---Inputs---" << std::endl;
       std::cout << "ALU control: " << bin2hex(control) << std::endl;
-      std::cout << "ALU input 1: " << bin2hex(inputOne) << std::endl;
-      std::cout << "ALU input 2: " << bin2hex(inputTwo) << std::endl;
+      std::cout << "ALU input 1: " << inputOne << std::endl;
+      std::cout << "ALU input 2: " << inputTwo << std::endl;
       std::cout << "---Outputs---" << std::endl;
       std::cout << "Zero: " << zero << std::endl;
-      std::cout << "ALU result:  " << bin2hex(ALUresult) << std::endl << std::endl;
+      std::cout << "ALU result:  " << ALUresult << std::endl << std::endl;
+      break;
+    case 1 :
+      std::cout << "*********** ALU 1 ***********" << std::endl;
+      std::cout << "---Inputs---" << std::endl;
+      std::cout << "Control: " << control << std::endl;      
+      std::cout << "ALU input 1: " << inputOne << std::endl;
+      std::cout << "ALU input 2: " << inputTwo << std::endl;
+      std::cout << "---Outputs---" << std::endl;
+      std::cout << "ALU result:  " << ALUresult << std::endl << std::endl;
       break;
     case 2 :
       std::cout << "*********** ALU 2 ***********" << std::endl;
       std::cout << "---Inputs---" << std::endl;
-      std::cout << "ALU input 1: " << bin2hex(inputOne) << std::endl;
-      std::cout << "ALU input 2: " << bin2hex(inputTwo) << std::endl;
+      std::cout << "Control: " << control << std::endl;
+      std::cout << "ALU input 1: " << inputOne << std::endl;
+      std::cout << "ALU input 2: " << inputTwo << std::endl;
       std::cout << "---Outputs---" << std::endl;
-      std::cout << "ALU result:  " << bin2hex(ALUresult) << std::endl << std::endl;
-      break;
-    case 3 :
-      std::cout << "*********** ALU 3 ***********" << std::endl;
-      std::cout << "---Inputs---" << std::endl;
-      std::cout << "ALU input 1: " << bin2hex(inputOne) << std::endl;
-      std::cout << "ALU input 2: " << bin2hex(inputTwo) << std::endl;
-      std::cout << "---Outputs---" << std::endl;
-      std::cout << "ALU result:  " << bin2hex(ALUresult) << std::endl << std::endl;
+      std::cout << "ALU result:  " << ALUresult << std::endl << std::endl;
       break;
   }
 }

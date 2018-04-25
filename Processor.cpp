@@ -14,7 +14,7 @@ Processor() : Unit("Processor") {
 void Processor::
 process() {
   std::string initialPC =  programCounter.getPC();
-  cout << initialPC << endl;
+  // cout << initialPC << endl;
   while(stoi(hex2dec(programCounter.getPC())) <= (stoi(hex2dec(initialPC))+4*(int)InstructionData.size())){
     fetch();
     decode();
@@ -29,16 +29,17 @@ process() {
 
 void Processor::
 fetch() { 
-  cout << programCounter.getPC() << endl;
+  // cout << programCounter.getPC() << endl;
   
-  for(auto iter = InstructionData.begin(); iter != InstructionData.end(); ++iter){
-    cout << "\t\t" << iter->first << " : " << iter->second.getOpcode() << endl;
-  }
+  // for(auto iter = InstructionData.begin(); iter != InstructionData.end(); ++iter){
+  //   cout << "\t\t" << iter->first << " : " << iter->second.getOpcode() << endl;
+  // }
 
   currentInstruction = InstructionData.at(programCounter.getPC());
   std::string currentPC = programCounter.getPC();
   std::string four = "00000000000000000000000000000100";
-  aluOne.add(currentPC, four);
+  aluOne.add(currentPC, bin2hex(four));
+  
 }
 
 void Processor::
@@ -49,46 +50,50 @@ decode(){
   control.setControlLines(currentInstruction);
   cout << "Decode 2" << endl;
   //   b. MUX1 gets RegDst and instruction 20-16 and 15-11
-  control.print();
-  // cout << "current bits 15, 11: " << currentInstruction.getBits(15, 11) << endl;
-  // print();
+  // control.print();
 
-  cout << endl << endl << endl;
-
-  // cout << "Inst bin string: " << currentInstruction.getBinStr() << endl;
-  // cout << "get bits: " << currentInstruction.getBits(15,11) << endl;
-  // cout << "reg number: " << stoi(bin2dec(currentInstruction.getBits(15,11))) << endl;
-  // cout << "get bits: " << currentInstruction.getBits(20,16) << endl;
-  // cout << "reg number: " << stoi(bin2dec(currentInstruction.getBits(20,16))) << endl;
-
-  // cout << "reg contents: " << registerContents.at(stoi(bin2dec(currentInstruction.getBits(15, 11)))) << endl;
-  // cout << "reg contents: " << registerContents.at(stoi(bin2dec(currentInstruction.getBits(20, 16)))) << endl;
-  
+  // TODO make an operate function for registerFile and put this logic inside
   muxRegDist.operate(control.getRegDst(), registerContents.at(stoi(bin2dec(currentInstruction.getBits(15, 11)))), registerContents.at(stoi(bin2dec(currentInstruction.getBits(20, 16)))));
-  
-  // muxRegDist.print();
+
 
   cout << "Decode 3" << endl;
   //   c. Register things: 
   //       - Register gets RegWrite
   registerFile.setRegWrite(control.getRegDst());
+
   cout << "Decode 4" << endl;
   //       - Read Register 1 gets instruction 25-21
   registerFile.setReadReg1(stoi(bin2dec(currentInstruction.getBits(25, 21))));
+  registerFile.setReadData1(registerContents.at(registerFile.getReadReg1()));
+
   cout << "Decode 5" << endl;
   //       - Read Register 2 gets instruction 20-16
   registerFile.setReadReg2(stoi(bin2dec(currentInstruction.getBits(20, 16))));
+  registerFile.setReadData2(registerContents.at(registerFile.getReadReg2()));
   cout << "Decode 6" << endl;
   //       - Write Register gets MUX1 return thing.
-  registerFile.setWriteReg(stoi(bin2dec(muxRegDist.getResult())));
+  if(registerFile.getRegWrite()){
+    registerFile.setWriteReg(stoi(bin2dec(muxRegDist.getResult())));
+  }
   cout << "Decode 7" << endl;
+
+  // registerFile.print();
   //   d. Sign extend instruction 15-0 and send it to shift left 2 while
   //      maintaining the number of bits. Send the result of this and 
   //      ALU1 to ALU2.
   signExtendedNum = signExt(currentInstruction.getBits(15, 0));
-  cout << "Decode 8" << endl;
-  aluTwo.operate("0010", aluOne.getALUresult(), shiftLeft2(signExtendedNum, true)); //  alu1Result will magically come from somewhere.
-  cout << "Decode 9" << endl;
+  // cout << "Decode 8" << endl;
+  // cout << "alu 1 result: " << aluOne.getALUresult() << endl;
+  // cout << "sl2 : " << shiftLeft2(signExtendedNum, true) << endl;
+
+  // cout << "Printing ALU1 result" << aluOne.getALUresult() << endl;
+  // cout << bin2hex(shiftLeft2(signExtendedNum, true)) << endl;
+
+  string sillyString = "0010";
+
+  aluTwo.operate(sillyString, aluOne.getALUresult(), bin2hex(shiftLeft2(signExtendedNum, true)));   
+  // aluTwo.print();
+  cout << "Decode 9  Good through here" << endl;
                                                                               // true = maintain number of bits. 
 }
 
@@ -107,6 +112,7 @@ execute(){
   cout << "aluMux: " << muxALUSrc.getResult() << endl;
   cout << "registerFile: " << registerFile.getReadData1() << endl;
   aluThree.operate(control.getALUControl(), muxALUSrc.getResult(), registerFile.getReadData1());
+  //aluThree.print();
   cout << "Execute 3" << endl;
   //   c. send the result of ALU1 and ALU2 and (branch AND zero from ALU3) 
   //      to MUX5.

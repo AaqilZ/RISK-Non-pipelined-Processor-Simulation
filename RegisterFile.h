@@ -45,17 +45,17 @@ class RegisterFile : public Unit {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief set control line
     /// @param control boolean value to set control line
-    void setRegWrite(const bool control) {}
+    void setRegWrite(const bool control) { regWrite = control; }
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Accessor for writeReg
     int getWriteReg() { return writeReg; }
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Setter for writeReg
     /// @param regNum number of the register to write
-    void setWriteReg(const int regNum) {}
+    void setWriteReg(const int regNum) { writeReg = regNum; }
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Set the data to write to memory
-    void setWriteData(const std::string data) {}
+    void setWriteData(const std::string data) { writeData = data; }
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Accessor for writeData
     std::string getWriteData() { return writeData; }
@@ -65,14 +65,22 @@ class RegisterFile : public Unit {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Setter for readReg1
     /// @param regNum number of the register to read
-    void setReadReg1(const int regNum) {}
+    void setReadReg1(const int regNum) { readReg1 = regNum; }
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Accessor for readReg2
     int getReadReg2() { return readReg2; }
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Setter for readReg2
     /// @param regNum number of the register to read
-    void setReadReg2(const int regNum) {}
+    void setReadReg2(const int regNum) { readReg2 = regNum; }
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief Setter for readData1
+    /// @param data data to set
+    void setReadData1(std::string data) { readData1 = data; }
+    //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief Setter for readData2
+    /// @param data data to set
+    void setReadData2(std::string data) { readData2 = data; }
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Accessor for readData1
     std::string& getReadData1() { return readData1; }

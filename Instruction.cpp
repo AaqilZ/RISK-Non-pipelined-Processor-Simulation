@@ -102,8 +102,7 @@ void
 Instruction::
 computeBinaryEncoding(){
   binStr+= opcode;
-      cout << binStr << endl;
-      cout << "The cake is a lie." << endl;
+      // cout << binStr << endl;
   switch (type){
     case(RTYPE):
       binStr += unsignedExt(dec2bin(rs), 5);
@@ -113,8 +112,7 @@ computeBinaryEncoding(){
       binStr += func;
       break;
     case(ITYPE):
-      cout << binStr << endl;
-      cout << "The cake is a lie." << endl;
+      // cout << binStr << endl;
       binStr += unsignedExt(dec2bin(rs), 5);
       binStr += unsignedExt(dec2bin(rt), 5);
       binStr += dec2bin(imm,16);

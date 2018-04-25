@@ -59,7 +59,7 @@ Control::setControlLines(const Instruction& inst){
   // BEQ 
   else if(op == "000100"){
     regDst=false; regWrite=false; ALUSrc=false; memWrite=false; memRead=false; 
-    memToReg=true; ALUOp0=true; ALUOp1=false; branch=true; ALUControl="0110"; jump=false; 
+    memToReg=true; ALUOp0=true; ALUOp1=false; branch=true; ALUControl="6969"; jump=false; 
   }
 }
 

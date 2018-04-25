@@ -2,7 +2,7 @@
 #define _ALU_H_
 
 #include "OperationUnit.h"
-
+#include<iostream>
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Class for general ALU functionality
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@ class ALU : public OperationUnit {
     std::string funcCode{""};     ///< the function code for ALUcontrol
     bool ALUop1{false};              ///< the ALUop1 control signal
     bool ALUop2{false};              ///< the ALUop2 control signal
-    bool zero{""};                ///< the zero contorl signal
+    bool zero{false};                ///< the zero contorl signal
     
   public:
     //////////////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ class ALU : public OperationUnit {
     /// 
     /// @return string the argument to be chosen based on control
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::string operate(std::string control, std::string arg1, std::string arg2);
+    virtual std::string operate(std::string c, std::string arg1, std::string arg2);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Determines which other function to call
@@ -55,12 +55,14 @@ class ALU : public OperationUnit {
     /// @param arg1 first argument for arithmetic
     /// @param arg2 second argument for arithmetic
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::string operate(bool control, std::string arg1, std::string arg2) { return ""; }
+    virtual std::string operate(bool control, std::string arg1, std::string arg2) { 
+      std::cout << "The dog has more personality than the pig" << std::endl;
+      return "hi alu three"; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Handles addition
     //////////////////////////////////////////////////////////////////////////////////////
-    std::string add(std::string& arg1, std::string& arg2);
+    std::string add(std::string arg1, std::string arg2);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief handles twos comp for subtraction
@@ -89,6 +91,10 @@ class ALU : public OperationUnit {
     /// @brief printing function
     //////////////////////////////////////////////////////////////////////////////////////
     virtual void print();
+
+    std::string getControl() { return control; }
+
+    void setControl(std::string c) { control = c; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief sets the value of the ALU control signal
