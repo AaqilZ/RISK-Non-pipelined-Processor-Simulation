@@ -91,7 +91,7 @@ hex2bin(const string& hex){
 
 
 string 
-signExt(const string& value, size_t numDigits = 32){
+signExt(const string& value, size_t numDigits){
   string num = value;
   while(num.length()<numDigits)
     if(value.at(0) == '0'){

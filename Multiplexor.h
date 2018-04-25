@@ -58,7 +58,7 @@ class Multiplexor : public OperationUnit {
     /// @brief gets the value of result
     /// @return string result value
     //////////////////////////////////////////////////////////////////////////////////////
-    std::string getResult() { return result; }
+    std::string& getResult() { return result; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief printing function
@@ -74,7 +74,7 @@ class Multiplexor : public OperationUnit {
     /// 
     /// @return string the argument to be chosen based on control
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::string operate(std::string control, std::string& arg1, std::string& arg2) { return ""; }
+    virtual std::string operate(std::string control, std::string arg1, std::string arg2) { return ""; }
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Determines which other function to call
@@ -83,7 +83,7 @@ class Multiplexor : public OperationUnit {
     /// @param arg1 first argument for arithmetic
     /// @param arg2 second argument for arithmetic
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::string operate(bool control, std::string& arg1, std::string& arg2);
+    virtual std::string operate(bool control, std::string arg1, std::string arg2);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Multiplexor class

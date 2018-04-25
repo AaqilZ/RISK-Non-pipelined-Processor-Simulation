@@ -2,7 +2,7 @@
 #include "Utilities.h"
 
 std::string Multiplexor::
-operate(bool control, std::string& arg1, std::string& arg2) {
+operate(bool control, std::string arg1, std::string arg2) {
 	// save variables for printing
 	setControlSignal(control);
 	setOption1(arg1);

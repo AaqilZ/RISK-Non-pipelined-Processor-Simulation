@@ -47,7 +47,7 @@ class OperationUnit : public Unit{
     /// @param arg1 first argument for arithmetic
     /// @param arg2 second argument for arithmetic
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::string operate(std::string control, std::string& arg1, std::string& arg2) = 0;
+    virtual std::string operate(std::string control, std::string arg1, std::string arg2) = 0;
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Determines which other function to call
@@ -56,7 +56,7 @@ class OperationUnit : public Unit{
     /// @param arg1 first argument for arithmetic
     /// @param arg2 second argument for arithmetic
     //////////////////////////////////////////////////////////////////////////////////////
-    virtual std::string operate(bool control, std::string& arg1, std::string& arg2) = 0;
+    virtual std::string operate(bool control, std::string arg1, std::string arg2) = 0;
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the OperationUnit class

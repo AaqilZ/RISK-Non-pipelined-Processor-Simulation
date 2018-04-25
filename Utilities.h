@@ -39,7 +39,7 @@ std::string hex2bin(const std::string& hex);
 /// @param value the value to be sign extended
 /// @param numDigits the number of digits to include in the return string; default 32
 //////////////////////////////////////////////////////////////////////////////////////////
-std::string signExt(const std::string& value, size_t numDigits);
+std::string signExt(const std::string& value, size_t numDigits = 32);
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief unsigned extend

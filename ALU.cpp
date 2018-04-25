@@ -3,7 +3,7 @@
 #include <iostream>
 
 std::string ALU::
-operate(std::string control, std::string& arg1, std::string& arg2){
+operate(std::string control, std::string arg1, std::string arg2){
   std::string add = "0010";
   std::string subtract = "0110";
   std::string slt = "0111";

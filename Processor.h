@@ -36,6 +36,7 @@ class Processor : public Unit {
     RegisterFile registerFile;                                      ///< RegisterFile to store registers and writes data
     ProgramCounter programCounter;                                  ///< ProgramCounter to keep track of the address of the instruction being executed
     Instruction& currentInstruction{InstructionData.at(programCounter.getPC())};                                ///< a reference to the instruction that is currently being executed
+    std::string signExtendedNum;                                    ///< the sign extended version of instruction bits 15-0
 
   public:
     //////////////////////////////////////////////////////////////////////////////////////
@@ -89,12 +90,12 @@ class Processor : public Unit {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief the decode stage of the fetch execute cycle
     //////////////////////////////////////////////////////////////////////////////////////
-    void decode() { }
+    void decode();
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief the execute stage of the fetch execute cycle
     //////////////////////////////////////////////////////////////////////////////////////
-    void execute() { }
+    void execute();
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief the memory stage of the fetch execute cycle

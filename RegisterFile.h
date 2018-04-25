@@ -75,10 +75,10 @@ class RegisterFile : public Unit {
     void setReadReg2(const int regNum) {}
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Accessor for readData1
-    std::string getReadData1() { return readData1; }
+    std::string& getReadData1() { return readData1; }
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Accessor for readData2
-    std::string getReadData2() { return readData2; }
+    std::string& getReadData2() { return readData2; }
 
     /// @}
     //////////////////////////////////////////////////////////////////////////////////////
