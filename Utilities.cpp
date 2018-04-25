@@ -105,15 +105,17 @@ signExt(const string& value, size_t numDigits = 32){
 
 
 string 
-shiftLeft2(const string& value) {
+shiftLeft2(const string& value, bool conserveBits) {
   string bin = "";
   if(tolower(value[1])=='x'){
     bin = hex2bin(value);
+    if(conserveBits)
     bin = bin.erase(0, 2);
     bin += "00";
   }
   else{     // Here I am assuming that we only get hex/bin values
     bin = value;
+    if(conserveBits)
     bin = bin.erase(0, 2);
     bin += "00"; 
   }
@@ -205,7 +207,7 @@ testUtilities() {
   cout << "\t" << signExt("11001100", 16) << " [Expected: 1111111111001100]" << endl << endl;
 
   cout << "Testing shiftLeft2(\"0110101\");" << endl;
-  cout << "\t" << shiftLeft2("0110101") << " [Expected: 1010100]" << endl << endl;
+  cout << "\t" << shiftLeft2("0110101", true) << " [Expected: 1010100]" << endl << endl;
 
   cout << "Testing hex2dec(\"0x34bf\");" << endl;
   cout << "\t" << hex2dec("0x34bf") << " [Expected: 13503]" << endl << endl;

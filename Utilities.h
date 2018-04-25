@@ -50,7 +50,7 @@ std::string unsignedExt(const std::string& value, size_t numDigits);
 /// @brief function to shift left 2
 /// @param value the value to be shifted. Assumes either bin or hex.
 //////////////////////////////////////////////////////////////////////////////////////////
-std::string shiftLeft2(const std::string& value);
+std::string shiftLeft2(const std::string& value, bool conserveBits);
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief converts a decimal value to a binary string
