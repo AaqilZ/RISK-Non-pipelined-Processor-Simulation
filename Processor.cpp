@@ -90,7 +90,6 @@ decode(){
   // cout << bin2hex(shiftLeft2(signExtendedNum, true)) << endl;
 
   string addCode = "0010";
-
   aluTwo.operate(addCode, aluOne.getALUresult(), bin2hex(shiftLeft2(signExtendedNum, true)));   
   // aluTwo.print();
   cout << "Decode 9  Good through here" << endl;
@@ -102,7 +101,7 @@ execute(){
   // Execute: 
   //   a. MUX2 gets ALUSrc and Read Data 2 and the 32 bit sign extended number
   cout << "signExtNum: " << signExtendedNum << endl;
-  cout << "regFile: " << registerFile.getReadData2() << endl;
+  cout << "readData: " << registerFile.getReadData2() << endl;
   muxALUSrc.operate(control.getALUSrc(), signExtendedNum, registerFile.getReadData2());
   cout << "Execute 1" << endl;
   
