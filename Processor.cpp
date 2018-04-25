@@ -107,9 +107,9 @@ execute(){
   cout << "Execute 1" << endl;
   
   //   b. ALU3 gets ALU Control and Read Data 1 and result of MUX2
-  cout << "getaluop0: " << control.getALUOp0() << endl;
-  cout << "getaluop1: " << control.getALUOp1() << endl;
-  cout << "Func field of current inst: " << currentInstruction.getFuncField() << endl;
+  // cout << "getaluop0: " << control.getALUOp0() << endl;
+  // cout << "getaluop1: " << control.getALUOp1() << endl;
+  // cout << "Func field of current inst: " << currentInstruction.getFuncField() << endl;
   aluThree.setControl(control.getALUOp0(), control.getALUOp1(), currentInstruction.getFuncField());
  // aluThree.print(); 
   cout << "Execute 2" << endl;  
@@ -139,7 +139,7 @@ execute(){
   std::string uglyString = bin2hex((hex2bin(programCounter.getPC()).substr(0, 4)+shiftLeft2(currentInstruction.getBits(25, 0), false)));
 
   muxJump.operate(control.getJump(), uglyString, muxBranch.getResult());
-  muxJump.print();
+  // muxJump.print();
   //   e. Send result of MUX4 to PC?
   cout << "Execute 5" << endl;
   programCounter.setPC(muxJump.getResult());

@@ -17,23 +17,34 @@ operate(std::string c, std::string arg1, std::string arg2){
   control = c;
   inputOne = arg1;
   inputTwo = arg2;
-  
-  std::cout << "control " << control << std::endl;
-  std::cout << "arg1 " << inputOne << std::endl;
-  std::cout << "arg2 " << inputTwo << std::endl;
+
+  // 00101110110001001111001000011001    input one
+  // 00101110110001001111001000011001
+
+  // 00110000010111110111111010100001    input two
+  // 
+
+  std::cout << std::endl;
+  std::cout << std::endl;
+  std::cout << "unit number :" << getUnitNum() << std::endl;
+  std::cout << "control :" << control << std::endl;
+  std::cout << "arg1 :" << inputOne << std::endl;
+  std::cout << "arg2 :" << inputTwo << std::endl;
+  std::cout << std::endl;
+  std::cout << std::endl;
 
   if(control == add){
     // std::cout << "printing hex conversions: " << hex2bin(arg1) << " " << hex2bin(arg2) << std::endl;
     result = ALU::add(arg1, arg2);
   }
   else if(control == subtract){
-    std::cout << arg1 << std::endl;
+    // std::cout << arg1 << std::endl;
     arg2 = hex2bin(arg2);
-    std::cout << arg2 << std::endl;
+    // std::cout << arg2 << std::endl;
     arg2 = twosComp(arg2);
-    std::cout << arg2 << std::endl;
+    // std::cout << arg2 << std::endl;
     arg2 = bin2hex(arg2);
-    std::cout << arg2 << std::endl;
+    // std::cout << arg2 << std::endl;
     //arg2 = bin2hex(twosComp(hex2bin(arg2)));          // make arg2 a negative
     result = ALU::add(arg1, arg2);   // add arg1 and -arg2
   } else if(control == slt){
@@ -67,7 +78,10 @@ add(std::string arg1, std::string arg2) {
   arg1 = hex2bin(arg1);
   arg2 = hex2bin(arg2);
 
-  setControl("0010");
+  // std::cout << "POTATO SOOOOOUUUUUUPPPPPP" << std::endl;
+  // std::cout << "POTATO SOOOOOUUUUUUPPPPPP " << getUnitNum() << std::endl;
+  if(getUnitNum() != 3)
+    setControl("0010");
   setInputOne(arg1);
   setInputTwo(arg2);
   
@@ -160,24 +174,28 @@ bitwiseOR(std::string& arg1, std::string& arg2){
   return final;
 }
 
-void ALU::setControl(bool ALUop1, bool ALUop2, std::string func){
+void ALU::setControl(bool ALUop0, bool ALUop1, std::string func){
+  setALUop0(ALUop0);
   setALUop1(ALUop1);
-  setALUop2(ALUop2);
   setFuncCode(func);
 
   //  lw or sw
   //  00
-  if(!ALUop1 && !ALUop2)
+  if(!ALUop0 && !ALUop1)
     control = "0010";   // alu: add()
 
   //  beq
   //  01
-  if(ALUop1 && !ALUop2)
+  if(ALUop0 && !ALUop1){
+    // std::cout << "HEEEEEEEERRRRRRRRRRREEEEEEEEEEEEEEEEEE" << std::endl;
     control = "0110";   // alu: subtract()
-
+    // std::cout << "HEEEEEEEERRRRRRRRRRREEEEEEEEEEEEEEEEEE " << bin2hex(control) << std::endl;
+    // std::cout << "HEEEEEEEERRRRRRRRRRREEEEEEEEEEEEEEEEEE " << getUnitNum() << std::endl;
+  }
+    
   //  R-type
   //  11
-  if(ALUop1 && ALUop2){
+  if(ALUop0 && ALUop1){
     //  add + addi
     if(func == "100000" || func == "000000")
       control ="0010";  // alu: add()
@@ -198,8 +216,8 @@ print(){
     case 3 :
       std::cout << "*********** ALU Control ***********" << std::endl;
       std::cout << "---Inputs---" << std::endl;
+      std::cout << "ALUop0: " << ALUop0 << std::endl;
       std::cout << "ALUop1: " << ALUop1 << std::endl;
-      std::cout << "ALUop2: " << ALUop2 << std::endl;
       std::cout << "Function Code: " << bin2hex(funcCode) << std::endl;
       std::cout << "---Outputs---" << std::endl;
       std::cout << "ALU control: " << bin2hex(control) << std::endl << std::endl;
