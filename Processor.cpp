@@ -100,27 +100,46 @@ void Processor::
 execute(){
   // Execute: 
   //   a. MUX2 gets ALUSrc and Read Data 2 and the 32 bit sign extended number
-  cout << "signExtNum: " << signExtendedNum << endl;
-  cout << "readData: " << registerFile.getReadData2() << endl;
+  //cout << "signExtNum: " << signExtendedNum << endl;
+  //cout << "readData: " << registerFile.getReadData2() << endl;
   muxALUSrc.operate(control.getALUSrc(), signExtendedNum, registerFile.getReadData2());
+  //muxALUSrc.print();
   cout << "Execute 1" << endl;
   
   //   b. ALU3 gets ALU Control and Read Data 1 and result of MUX2
+  cout << "getaluop0: " << control.getALUOp0() << endl;
+  cout << "getaluop1: " << control.getALUOp1() << endl;
+  cout << "Func field of current inst: " << currentInstruction.getFuncField() << endl;
   aluThree.setControl(control.getALUOp0(), control.getALUOp1(), currentInstruction.getFuncField());
+ // aluThree.print(); 
   cout << "Execute 2" << endl;  
-  cout << "aluMux: " << muxALUSrc.getResult() << endl;
-  cout << "registerFile: " << registerFile.getReadData1() << endl;
-  aluThree.operate(control.getALUControl(), muxALUSrc.getResult(), registerFile.getReadData1());
-  //aluThree.print();
+//  cout << "aluMux: " << muxALUSrc.getResult() << endl;
+//  cout << "registerFile: " << registerFile.getReadData1() << endl;
+//  cout << "Alu 3 control: " << aluThree.getControl() << endl; 
+//  cout << "ALUControl from control: " << control.getALUControl() << endl;
+//  cout << "MUX2 result: " << muxALUSrc.getResult() << endl;
+  aluThree.operate(aluThree.getControl(), muxALUSrc.getResult(), registerFile.getReadData1());
+  aluThree.print();
   cout << "Execute 3" << endl;
   //   c. send the result of ALU1 and ALU2 and (branch AND zero from ALU3) 
   //      to MUX5.
   muxBranch.operate((control.getBranch()&&aluThree.getZero()), aluTwo.getALUresult(), aluOne.getALUresult());
+ // muxBranch.print();
   //   d. Shift left 2 takes instruction 25-0 and shifts 2(increasing 2 bits)
   //      and concatenate those 28 bits with the bits from ALU1. Send this(jump
   //      address) and result of MUX5 to MUX4.
   cout << "Execute 4" << endl;
-  muxJump.operate(control.getJump(), (programCounter.getPC()+shiftLeft2(currentInstruction.getBits(25, 0), false)), muxBranch.getResult());
+
+//  cout << "PC: " << programCounter.getPC() << endl;
+//  cout << "Current Instruction: " << currentInstruction.getBits(25, 0) << endl;
+//  cout << "Shifted Instruction: " << shiftLeft2(currentInstruction.getBits(25, 0), false) << endl;
+//  cout << (hex2bin(programCounter.getPC()).substr(0, 4)+shiftLeft2(currentInstruction.getBits(25, 0), false)) << endl;
+  
+
+  std::string uglyString = bin2hex((hex2bin(programCounter.getPC()).substr(0, 4)+shiftLeft2(currentInstruction.getBits(25, 0), false)));
+
+  muxJump.operate(control.getJump(), uglyString, muxBranch.getResult());
+  muxJump.print();
   //   e. Send result of MUX4 to PC?
   cout << "Execute 5" << endl;
   programCounter.setPC(muxJump.getResult());
@@ -153,8 +172,13 @@ writeback(){
   //   b. MUX3 gets MemtoReg and Read data(from data memory) and result of ALU3
   ///@TODO DO WHAT IS WRITTEN ABOVE  
   cout << aluThree.getALUresult() << endl;
-  cout << bin2hex(aluThree.getALUresult()) << endl;
-  muxMemToReg.operate(control.getMemToReg(), MemoryData.at(bin2hex(aluThree.getALUresult())), aluThree.getALUresult());
+  cout << "Printing the bool" << control.getMemToReg() << endl;
+
+  aluThree.print();
+  //cout << "Printing the memData" <<InstructionData.at(aluThree.getALUresult()).getBits(32, 0) << endl; 
+  //
+  //MemoryData.at(aluThree.getALUresult()) << endl;
+  muxMemToReg.operate(control.getMemToReg(), InstructionData.at(aluThree.getALUresult()).getBits(32, 0), aluThree.getALUresult());
   cout << "Writeback 1" << endl;
   
 

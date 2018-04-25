@@ -18,16 +18,23 @@ operate(std::string c, std::string arg1, std::string arg2){
   inputOne = arg1;
   inputTwo = arg2;
   
-  // std::cout << "control " << control << std::endl;
-  // std::cout << "arg1 " << inputOne << std::endl;
-  // std::cout << "arg2 " << inputTwo << std::endl;
+  std::cout << "control " << control << std::endl;
+  std::cout << "arg1 " << inputOne << std::endl;
+  std::cout << "arg2 " << inputTwo << std::endl;
 
   if(control == add){
     // std::cout << "printing hex conversions: " << hex2bin(arg1) << " " << hex2bin(arg2) << std::endl;
     result = ALU::add(arg1, arg2);
   }
   else if(control == subtract){
-    arg2 = twosComp(arg2);          // make arg2 a negative
+    std::cout << arg1 << std::endl;
+    arg2 = hex2bin(arg2);
+    std::cout << arg2 << std::endl;
+    arg2 = twosComp(arg2);
+    std::cout << arg2 << std::endl;
+    arg2 = bin2hex(arg2);
+    std::cout << arg2 << std::endl;
+    //arg2 = bin2hex(twosComp(hex2bin(arg2)));          // make arg2 a negative
     result = ALU::add(arg1, arg2);   // add arg1 and -arg2
   } else if(control == slt){
     int one = stoi(hex2dec(arg1));  // convert arg1 to int for easy comparison
@@ -165,7 +172,7 @@ void ALU::setControl(bool ALUop1, bool ALUop2, std::string func){
 
   //  beq
   //  01
-  if(!ALUop1 && ALUop2)
+  if(ALUop1 && !ALUop2)
     control = "0110";   // alu: subtract()
 
   //  R-type

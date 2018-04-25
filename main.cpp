@@ -21,7 +21,7 @@ int main() {
   parser.parseRegisterFile(processor.getRegisterData());
   parser.parseMemory(processor.getMemoryData());
   
-//  processor.print();
+////  processor.print();
   processor.process();
    
   return 0;

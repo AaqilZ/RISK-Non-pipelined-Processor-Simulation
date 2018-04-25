@@ -28,10 +28,10 @@ class Processor : public Unit {
     ALU aluTwo{2};                                                  ///< ALU that receives from shift left 2 and sends data to mux
     ALU aluThree{3};                                                ///< ALU that receives from mux and read data one and sends data to data memory
     Multiplexor muxRegDist{1};                                      ///< MUX that receives the RegDist control signal
-    Multiplexor muxJump{2};                                         ///< MUX that receives the Jump control signal
-    Multiplexor muxBranch{3};                                       ///< MUX that receives the Branch control signal
-    Multiplexor muxMemToReg{4};                                     ///< MUX that receives the MemToReg control signal
-    Multiplexor muxALUSrc{5};                                       ///< MUX that receives the ALUSrc control signal
+    Multiplexor muxJump{4};                                         ///< MUX that receives the Jump control signal
+    Multiplexor muxBranch{5};                                       ///< MUX that receives the Branch control signal
+    Multiplexor muxMemToReg{3};                                     ///< MUX that receives the MemToReg control signal
+    Multiplexor muxALUSrc{2};                                       ///< MUX that receives the ALUSrc control signal
     Control control;                                                ///< Main Control unit, also contains ALU Controller
     RegisterFile registerFile;                                      ///< RegisterFile to store registers and writes data
     ProgramCounter programCounter;                                  ///< ProgramCounter to keep track of the address of the instruction being executed
