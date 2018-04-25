@@ -51,7 +51,7 @@ class ALU : public OperationUnit {
     ///
     /// @param arg2 the argument to be converted to twos comp for subtraction
     //////////////////////////////////////////////////////////////////////////////////////
-    std::string twosComp(std::string& arg1);
+    // std::string twosComp(std::string& arg1);
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief handles bitwise AND

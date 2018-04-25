@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-
+enum type{RTYPE, ITYPE, JTYPE};
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Instruction class
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -15,8 +15,9 @@ class Instruction {
     int rs = -1;                        ///< stores the rs register
     int rt = -1;                        ///< stores the rt register
     int rd = -1;                        ///< stores the rd register
-    std::string imm;                    ///< stores the immediate field
-    std::string func;                   ///< stores the function code of r-type instructions
+    int imm = -1;                       ///< stores the immediate field
+    std::string func{""};               ///< stores the function code of r-type instructions
+    int type = -1;                      ///< stores enum for the type of instruction
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief parses the register number from a string starting with $
@@ -42,6 +43,11 @@ class Instruction {
     Instruction() {}
 
     //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief constructor parses an input string
+    //////////////////////////////////////////////////////////////////////////////////////
+    Instruction(std::string inst) { parseInstruction(inst); computeBinaryEncoding(); }
+
+    //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Deleted Copy Constructor
     //////////////////////////////////////////////////////////////////////////////////////
     Instruction(const Instruction& other) = delete;
@@ -58,6 +64,9 @@ class Instruction {
     void parseInstruction(std::string inst);
 
     //////////////////////////////////////////////////////////////////////////////////////
+    /// @brief sets the binString for the instruction object
+    void computeBinaryEncoding();
+    //////////////////////////////////////////////////////////////////////////////////////
     /// @brief << operator overload for output
     //////////////////////////////////////////////////////////////////////////////////////
     const std::ostream& operator<<(std::ostream& os);
@@ -73,7 +82,7 @@ class Instruction {
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief tests the Instruction class
     //////////////////////////////////////////////////////////////////////////////////////
-    void testInstruction() { }
+    void testInstruction();
 
 };
 

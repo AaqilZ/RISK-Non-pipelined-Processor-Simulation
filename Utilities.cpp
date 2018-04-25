@@ -127,16 +127,61 @@ hex2dec(string hex){
 
 string 
 dec2hex(int dec) { 
+  return bin2hex(dec2bin(dec));
+}
+
+string
+dec2bin(int value){
   string bin = "";
-  while(dec > 0){
-    if((dec % 2) == 1){
+  bool neg = value < 0;
+  if(neg) value *= -1;
+  while(value > 0){
+    if((value % 2) == 1){
       bin = "1" + bin;
     }
     else 
       bin = "0" + bin;
-    dec /= 2;
+    value /= 2;
   }
-  return bin2hex(bin);
+  // cout << "Binary: " << bin << endl;
+  if(neg) return twosComp(bin);
+  return bin;
+}
+
+string
+dec2bin(int value, size_t length){
+  string bin = dec2bin(value);
+  // make sure signExt operates correctly
+  if(bin.length() < length - 1 && value > 0){
+    bin = "0" + bin;
+  }
+  return signExt(bin, length);
+}
+
+string
+unsignedExt(const string& value, size_t length){
+  string bin = value;
+  while(bin.length() < length) {
+    bin = "0" + bin;
+  }
+  return bin;
+}
+
+string
+twosComp(string& arg1){
+  int carry = 1;
+  
+  for (int i = arg1.length() - 1; i >= 0; i-- ) {
+    // flip 0 to 1 or vice versa using XOR
+    arg1[i] = (arg1[i] ^ 1); 
+    // add carry from last loop through       
+    arg1[i] += carry;
+    // save the overflow in the carry variable
+    carry = (arg1[i] & 2) >> 1;    
+    arg1[i] &= ~2; 
+  }
+  
+  return arg1;
 }
 
 void 
@@ -167,4 +212,9 @@ testUtilities() {
 
   cout << "Testing dec2hex(43289);" << endl;
   cout << "\t" << dec2hex(43289) << " [Expected: a919]" << endl << endl;
+
+  cout << "Testing dec2bin(1234);" << endl;
+  cout << "\t" << dec2bin(1234) << " [Expected: 10011010010]" << endl << endl;
+  cout << "Testing dec2bin(1234, 16);" << endl;
+  cout << "\t" << dec2bin(1234,16) << " [Expected: 0000010011010010" << endl << endl;
 }
