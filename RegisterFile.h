@@ -1,6 +1,12 @@
 #ifndef _REGISTER_FILE_H_
 #define _REGISTER_FILE_H_
 
+#include <fstream>
+
+extern bool printMemory;
+extern bool writeToFile;
+extern std::ofstream o;
+
 #include "Unit.h"
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief class for RegisterFile

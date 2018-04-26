@@ -1,8 +1,14 @@
 #ifndef _ALU_H_
 #define _ALU_H_
 
+#include <fstream>
+
+extern bool printMemory;
+extern bool writeToFile;
+extern std::ofstream o;
+
 #include "OperationUnit.h"
-#include<iostream>
+#include <iostream>
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Class for general ALU functionality
 //////////////////////////////////////////////////////////////////////////////////////////

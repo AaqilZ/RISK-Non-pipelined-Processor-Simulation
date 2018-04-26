@@ -4,9 +4,16 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <fstream>
 
 #include "Instruction.h"
 #include "RegisterFile.h"
+
+extern bool singleStep;
+extern bool debug;
+extern bool printMemory;
+extern bool writeToFile;
+extern std::ofstream o;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Class to parse inputs
@@ -19,9 +26,6 @@ class Parser {
     std::string registerFileName;             ///< name of register data file (from input file)
     std::string memoryFileName;               ///< name of memory data file (from input file)
     std::string outputMode;                   ///< either single-step or batch
-    bool debug;                               ///< whether to print debugging info
-    bool printMemory;                         ///< whether to print memory contents
-    bool writeToFile;                         ///< whether to write output to file
     std::string outputFile;                   ///< name of file to write to
 
   public:

@@ -20,6 +20,7 @@ process() {
 // cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Initial PC: " << stoi(hex2dec(programCounter.getPC())) << endl;
 // cout << "MAX PC: " <<(stoi(hex2dec(initialPC))+4*(int)InstructionData.size()) << endl;
   while(stoi(hex2dec(programCounter.getPC())) < (stoi(hex2dec(initialPC))+4*(int)InstructionData.size())){
+    if(singleStep) cin.get();
     fetch();
     decode();
     execute();
@@ -265,25 +266,48 @@ writeback(){
 void Processor::
 print(){
   ///@TODO Print instruction memory
-  // std::cout << "*********** Instruction Memory ***********" << std::endl;
-  // for (auto& element : InstructionData)
-  // {
-  //   std::cout << element.first << " : " << bin2hex(element.second.getBinStr()) << std::endl << std::endl;
-  // }
+  if(writeToFile){
+    o << "*********** Instruction Memory ***********" << std::endl;
+    for (auto& element : InstructionData)
+    {
+      o << element.first << " : " << bin2hex(element.second.getBinStr()) << std::endl << std::endl;
+    }
 
-  // std::cout << "*********** Data Memory ***********" << std::endl;
-  // for (std::pair<std::string, std::string> element : MemoryData)
-  // {
-    // std::cout << element.first << " : " << element.second << std::endl << std::endl;
-  // }
+    o << "*********** Data Memory ***********" << std::endl;
+    for (std::pair<std::string, std::string> element : MemoryData)
+    {
+      o << element.first << " : " << element.second << std::endl << std::endl;
+    }
 
-  std::cout << "*********** Register Contents ***********" << std::endl;
+    o << "*********** Register Contents ***********" << std::endl;
+    int regCount = 0;
+    for(auto i = registerContents.begin(); i != registerContents.end(); ++i)
+    {
+      o << "$" << regCount << " : " << *i << std::endl << std::endl;
+      regCount++;
+    }
+  }
+
+  o << "*********** Instruction Memory ***********" << std::endl;
+  for (auto& element : InstructionData)
+  {
+    o << element.first << " : " << bin2hex(element.second.getBinStr()) << std::endl << std::endl;
+  }
+
+  o << "*********** Data Memory ***********" << std::endl;
+  for (std::pair<std::string, std::string> element : MemoryData)
+  {
+    o << element.first << " : " << element.second << std::endl << std::endl;
+  }
+
+  o << "*********** Register Contents ***********" << std::endl;
   int regCount = 0;
   for(auto i = registerContents.begin(); i != registerContents.end(); ++i)
   {
-    std::cout << "$" << regCount << " : " << *i << std::endl << std::endl;
+  o << "$" << regCount << " : " << *i << std::endl << std::endl;
     regCount++;
   }
+
 
   // aluOne.print();
   // aluTwo.print();

@@ -2,11 +2,16 @@
 
 #include "Utilities.h"
 
+#include <fstream>
+
 using namespace std;
 
 #include <sstream>
 #include <cstdlib>
 
+extern bool printMemory;
+extern bool writeToFile;
+extern std::ofstream o;
 
 void
 Instruction::
@@ -257,8 +262,10 @@ testInstruction(){
   i.getBits(15,11);
 }
 
-const ostream&
+void
 Instruction::
-operator<<(ostream& os){
-  return os;
+print() {
+  if(writeToFile){
+    o << binStr << endl;
+  }
 }

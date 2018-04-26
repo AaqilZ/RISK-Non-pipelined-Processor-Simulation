@@ -13,6 +13,11 @@
 #include "RegisterFile.h"
 #include "ProgramCounter.h"
 
+extern bool singleStep;
+extern bool printMemory;
+extern bool writeToFile;
+extern std::ofstream o;
+
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Processor class
 /// @details Processor should be able to print the state of all objects and should own objects to complete functionality

@@ -238,7 +238,47 @@ add(std::string arg1, std::string arg2) {
 
   void ALU::
     print(){
-      switch(getUnitNum()){
+      if(writeToFile){
+        switch(getUnitNum()){
+          case 3 :
+            o << "*********** ALU Control ***********" << std::endl;
+            o << "---Inputs---" << std::endl;
+            o << "ALUop0: " << ALUop0 << std::endl;
+            o << "ALUop1: " << ALUop1 << std::endl;
+            o << "Function Code: " << bin2hex(funcCode) << std::endl;
+            o << "---Outputs---" << std::endl;
+            o << "ALU control: " << bin2hex(control) << std::endl << std::endl;
+
+            o << "*********** ALU 3 ***********" << std::endl;
+            o << "---Inputs---" << std::endl;
+            o << "ALU control: " << bin2hex(control) << std::endl;
+            o << "ALU input 1: " << inputOne << std::endl;
+            o << "ALU input 2: " << inputTwo << std::endl;
+            o << "---Outputs---" << std::endl;
+            o << "Zero: " << zero << std::endl;
+            o << "ALU result:  " << ALUresult << std::endl << std::endl;
+            break;
+          case 1 :
+            o << "*********** ALU 1 ***********" << std::endl;
+            o << "---Inputs---" << std::endl;
+            o << "Control: " << control << std::endl;      
+            o << "ALU input 1: " << inputOne << std::endl;
+            o << "ALU input 2: " << inputTwo << std::endl;
+            o << "---Outputs---" << std::endl;
+            o << "ALU result:  " << ALUresult << std::endl << std::endl;
+            break;
+          case 2 :
+            o << "*********** ALU 2 ***********" << std::endl;
+            o << "---Inputs---" << std::endl;
+            o << "Control: " << control << std::endl;
+            o << "ALU input 1: " << inputOne << std::endl;
+            o << "ALU input 2: " << inputTwo << std::endl;
+            o << "---Outputs---" << std::endl;
+            o << "ALU result:  " << ALUresult << std::endl << std::endl;
+            break;
+        }
+      }
+    switch(getUnitNum()){
         case 3 :
           std::cout << "*********** ALU Control ***********" << std::endl;
           std::cout << "---Inputs---" << std::endl;
@@ -247,7 +287,6 @@ add(std::string arg1, std::string arg2) {
           std::cout << "Function Code: " << bin2hex(funcCode) << std::endl;
           std::cout << "---Outputs---" << std::endl;
           std::cout << "ALU control: " << bin2hex(control) << std::endl << std::endl;
-
           std::cout << "*********** ALU 3 ***********" << std::endl;
           std::cout << "---Inputs---" << std::endl;
           std::cout << "ALU control: " << bin2hex(control) << std::endl;
@@ -275,12 +314,12 @@ add(std::string arg1, std::string arg2) {
           std::cout << "---Outputs---" << std::endl;
           std::cout << "ALU result:  " << ALUresult << std::endl << std::endl;
           break;
-      }
     }
+  }
 
   void ALU::
-    testALU(){
-      std::cout << "ALU TESTING" << std::endl;
+  testALU(){
+    std::cout << "ALU TESTING" << std::endl;
 
       // Test add()
       std::string str1 = "1100011";

@@ -80,6 +80,9 @@ parseInput(){
     // output an error that identifies what parameter is invalid, and tells the options for parameters.
       cerr << "Input file has invalid parameter '" << var << "'. Options are: 'program_input', 'memory_contents_input', 'register_file_input', 'output_mode', 'debug_mode', 'print_memory_contents', 'write_to_file', and 'output_file'." << endl;
   }
+  singleStep = "single_step" == outputMode;
+  cout << singleStep << endl;
+  if(writeToFile) o.open(outputFile);
   // close input stream
   inputFile.close();
 }

@@ -65,18 +65,34 @@ Control::setControlLines(const Instruction& inst){
 
 void
 Control::print(){
-  std::cout << "*********** Control Unit ***********" << std::endl;
-  std::cout << "---Inputs---" << std::endl;
-  std::cout << "Op Code  : " << bin2hex(getOpCode()) << std::endl;
-  std::cout << "---Outputs---" << std::endl;
-  std::cout << "regDst   : " << getRegDst() << std::endl;
-  std::cout << "jump     : " << getJump() << std::endl;
-  std::cout << "branch   : " << getBranch() << std::endl;
-  std::cout << "memRead  : " << getMemRead() << std::endl;
-  std::cout << "memToReg : " << getMemToReg() << std::endl;
-  std::cout << "ALUOp0   : " << getALUOp0() << std::endl;
-  std::cout << "ALUOp1   : " << getALUOp1() << std::endl;
-  std::cout << "memWrite : " << getMemWrite() << std::endl;
-  std::cout << "ALUSrc   : " << getALUSrc() << std::endl;
-  std::cout << "regWrite : " << getRegWrite() << std::endl << std::endl;
+  if(writeToFile){
+    o << "*********** Control Unit ***********" << std::endl;
+    o << "---Inputs---" << std::endl;
+    o << "Op Code  : " << bin2hex(getOpCode()) << std::endl;
+    o << "---Outputs---" << std::endl;
+    o << "regDst   : " << getRegDst() << std::endl;
+    o << "jump     : " << getJump() << std::endl;
+    o << "branch   : " << getBranch() << std::endl;
+    o << "memRead  : " << getMemRead() << std::endl;
+    o << "memToReg : " << getMemToReg() << std::endl;
+    o << "ALUOp0   : " << getALUOp0() << std::endl;
+    o << "ALUOp1   : " << getALUOp1() << std::endl;
+    o << "memWrite : " << getMemWrite() << std::endl;
+    o << "ALUSrc   : " << getALUSrc() << std::endl;
+    o << "regWrite : " << getRegWrite() << std::endl << std::endl;
+  }
+    std::cout << "*********** Control Unit ***********" << std::endl;
+    std::cout << "---Inputs---" << std::endl;
+    std::cout << "Op Code  : " << bin2hex(getOpCode()) << std::endl;
+    std::cout << "---Outputs---" << std::endl;
+    std::cout << "regDst   : " << getRegDst() << std::endl;
+    std::cout << "jump     : " << getJump() << std::endl;
+    std::cout << "branch   : " << getBranch() << std::endl;
+    std::cout << "memRead  : " << getMemRead() << std::endl;
+    std::cout << "memToReg : " << getMemToReg() << std::endl;
+    std::cout << "ALUOp0   : " << getALUOp0() << std::endl;
+    std::cout << "ALUOp1   : " << getALUOp1() << std::endl;
+    std::cout << "memWrite : " << getMemWrite() << std::endl;
+    std::cout << "ALUSrc   : " << getALUSrc() << std::endl;
+    std::cout << "regWrite : " << getRegWrite() << std::endl << std::endl;
 }

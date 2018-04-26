@@ -3,6 +3,11 @@
 
 #include "Unit.h"
 #include "Instruction.h"
+#include <fstream>
+
+extern bool printMemory;
+extern bool writeToFile;
+extern std::ofstream o;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// @brief Class for constrol unit
