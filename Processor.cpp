@@ -267,57 +267,68 @@ void Processor::
 print(){
   ///@TODO Print instruction memory
   if(writeToFile){
-    o << "*********** Instruction Memory ***********" << std::endl;
-    for (auto& element : InstructionData)
-    {
-      o << element.first << " : " << bin2hex(element.second.getBinStr()) << std::endl << std::endl;
+    if(printMemory){
+      o << "*********** Instruction Memory ***********" << std::endl;
+      for (auto& element : InstructionData)
+      {
+        o << element.first << " : " << bin2hex(element.second.getBinStr()) << std::endl << std::endl;
+      }
+      o << "*********** Data Memory ***********" << std::endl;
+      for (std::pair<std::string, std::string> element : MemoryData)
+      {
+        o << element.first << " : " << element.second << std::endl << std::endl;
+      }
+      o << "*********** Register Contents ***********" << std::endl;
+      int regCount = 0;
+      for(auto i = registerContents.begin(); i != registerContents.end(); ++i)
+      {
+        o << "$" << regCount << " : " << *i << std::endl << std::endl;
+        regCount++;
+      }
     }
-
-    o << "*********** Data Memory ***********" << std::endl;
-    for (std::pair<std::string, std::string> element : MemoryData)
-    {
-      o << element.first << " : " << element.second << std::endl << std::endl;
-    }
-
-    o << "*********** Register Contents ***********" << std::endl;
-    int regCount = 0;
-    for(auto i = registerContents.begin(); i != registerContents.end(); ++i)
-    {
-      o << "$" << regCount << " : " << *i << std::endl << std::endl;
-      regCount++;
-    }
+    aluOne.print();
+    aluTwo.print();
+    aluThree.print();
+    muxRegDist.print();
+    muxJump.print();
+    muxBranch.print();
+    muxMemToReg.print();
+    muxALUSrc.print();
+    control.print();
+    registerFile.print();
+    programCounter.print();
   }
 
-  o << "*********** Instruction Memory ***********" << std::endl;
+  std::cout << "*********** Instruction Memory ***********" << endl;;
   for (auto& element : InstructionData)
   {
-    o << element.first << " : " << bin2hex(element.second.getBinStr()) << std::endl << std::endl;
+    std::cout << element.first << " : " << bin2hex(element.second.getBinStr()) << std::endl << std::endl;
   }
 
-  o << "*********** Data Memory ***********" << std::endl;
+  std::cout << "*********** Data Memory ***********" << std::endl;
   for (std::pair<std::string, std::string> element : MemoryData)
   {
-    o << element.first << " : " << element.second << std::endl << std::endl;
+    std::cout << element.first << " : " << element.second << std::endl << std::endl;
   }
 
-  o << "*********** Register Contents ***********" << std::endl;
+  std::cout << "*********** Register Contents ***********" << std::endl;
   int regCount = 0;
   for(auto i = registerContents.begin(); i != registerContents.end(); ++i)
   {
-  o << "$" << regCount << " : " << *i << std::endl << std::endl;
+  std::cout << "$" << regCount << " : " << *i << std::endl << std::endl;
     regCount++;
   }
 
 
-  // aluOne.print();
-  // aluTwo.print();
-  // aluThree.print();
-  // muxRegDist.print();
-  // muxJump.print();
-  // muxBranch.print();
-  // muxMemToReg.print();
-  // muxALUSrc.print();
-  // control.print();
-  // registerFile.print();
-  // programCounter.print();
+  aluOne.print();
+  aluTwo.print();
+  aluThree.print();
+  muxRegDist.print();
+  muxJump.print();
+  muxBranch.print();
+  muxMemToReg.print();
+  muxALUSrc.print();
+  control.print();
+  registerFile.print();
+  programCounter.print();
 }

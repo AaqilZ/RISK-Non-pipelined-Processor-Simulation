@@ -63,23 +63,23 @@ print(){
     o << "---Outputs---" << std::endl;
     o << "Selected: " << result << std::endl << std::endl;
   }
-      switch(getUnitNum()){
-      case 1 :
-        std::cout << "*********** MUX 1 ***********" << std::endl;
-        break;
-      case 2 :
-        std::cout << "*********** MUX 2 ***********" << std::endl;
-        break;
-      case 3 :
-        std::cout << "*********** MUX 3 ***********" << std::endl;
-        break;
-      case 4 :
-        std::cout << "*********** MUX 4 ***********" << std::endl;
-        break;
-      case 5 :
-        std::cout << "*********** MUX 5 ***********" << std::endl;
-        break;
-    }
+  switch(getUnitNum()){
+  case 1 :
+    std::cout << "*********** MUX 1 ***********" << std::endl;
+    break;
+  case 2 :
+    std::cout << "*********** MUX 2 ***********" << std::endl;
+    break;
+  case 3 :
+    std::cout << "*********** MUX 3 ***********" << std::endl;
+    break;
+  case 4 :
+    std::cout << "*********** MUX 4 ***********" << std::endl;
+    break;
+  case 5 :
+    std::cout << "*********** MUX 5 ***********" << std::endl;
+    break;
+  }
 
   std::cout << "---Inputs---" << std::endl;
   std::cout << "Control Signal: " << controlSignal << std::endl;
