@@ -254,8 +254,12 @@ writeback(){
     else {
       cout << "////////////////////////// _4_ /////////////////////////////" << endl;
       muxMemToReg.operate(control.getMemToReg(), "the cake is a lie", aluThree.getALUresult());
+      muxMemToReg.print();
     }
-  
+    cout << "////////////////////////// _5_ /////////////////////////////" << endl;
+    registerFile.setWriteData(muxMemToReg.getResult());
+    cout << "////////////////////////// _6_ /////////////////////////////" << endl;
+    registerContents[registerFile.getWriteReg()] = registerFile.getWriteData();
     // muxMemToReg.print();
   }
 
@@ -265,8 +269,12 @@ writeback(){
   //   a. Write data in register file gets the result of MUX3.
   ///@TODO need to have functionality in registerFile to check boolean before 
   //       writing to the write data reg
-  cout << "////////////////////////// _5_ /////////////////////////////" << endl;
-  if(control.getRegWrite()){
+  
+  if(control.getMemWrite()){
+    cout << "////////////////////////// _7_ /////////////////////////////" << endl;
+    aluThree.print();
+    cout << "registerFile.getReadReg2()" << registerFile.getReadReg2() << endl;
+    MemoryData.at(aluThree.getALUresult()) = registerContents[registerFile.getReadReg2()];
     // if(registerFile.getWriteReg() == 3){
     //   cout << "HOLY FUCK NUGGETS THIS IS WHERE SHIT GOES DOWN!!!!!" << endl;
     //   cout << "\t\t RegisterFile Data: " << registerContents[registerFile.getWriteReg()] << endl;
@@ -275,10 +283,7 @@ writeback(){
     // }
     // cout << "REGISTER NUMBER: " << registerFile.getWriteReg() << endl;
     // cout << "\t\t\tThis is what is wrong with life: ~setWrite - MUX RESULT = " << muxMemToReg.getResult() << endl;
-    cout << "////////////////////////// _6_ /////////////////////////////" << endl;
-    registerFile.setWriteData(muxMemToReg.getResult());
-    cout << "////////////////////////// _7_ /////////////////////////////" << endl;
-    registerContents[registerFile.getWriteReg()] = registerFile.getWriteData();
+    
     // cout << "Writeback 2" << endl;
   }
 }
