@@ -266,13 +266,15 @@ writeback(){
 void Processor::
 print(){
   ///@TODO Print instruction memory
+  if(singleStep) currentInstruction.print();
+
   if(writeToFile){
     if(printMemory){
-      o << "*********** Instruction Memory ***********" << std::endl;
-      for (auto& element : InstructionData)
-      {
-        o << element.first << ":" << bin2hex(element.second.getBinStr()) << std::endl;
-      }
+      // o << "*********** Instruction Memory ***********" << std::endl;
+      // for (auto& element : InstructionData)
+      // {
+      //   o << element.first << ":" << bin2hex(element.second.getBinStr()) << std::endl;
+      // }
       o << "*********** Data Memory ***********" << std::endl;
       for (std::pair<std::string, std::string> element : MemoryData)
       {
@@ -299,11 +301,11 @@ print(){
     programCounter.print();
   }
 
-  std::cout << "*********** Instruction Memory ***********" << endl;;
-  for (auto& element : InstructionData)
-  {
-    std::cout << element.first << ":" << bin2hex(element.second.getBinStr()) << std::endl;
-  }
+  // std::cout << "*********** Instruction Memory ***********" << endl;;
+  // for (auto& element : InstructionData)
+  // {
+  //   std::cout << element.first << ":" << bin2hex(element.second.getBinStr()) << std::endl;
+  // }
 
   std::cout << "*********** Data Memory ***********" << std::endl;
   for (std::pair<std::string, std::string> element : MemoryData)
