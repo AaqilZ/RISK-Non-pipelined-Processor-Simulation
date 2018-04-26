@@ -13,19 +13,31 @@ Processor() : Unit("Processor") {
 
 void Processor::
 process() {
+  int counter = 0;
   std::string initialPC =  programCounter.getPC();
-  // cout << initialPC << endl;
+  cout << initialPC << endl;
   while(stoi(hex2dec(programCounter.getPC())) <= (stoi(hex2dec(initialPC))+4*(int)InstructionData.size())){
     fetch();
     decode();
     execute();
     memory();
     writeback();
+    counter++;
+    
+
+    //muxJump.print();
+
     
     cout << hex2dec(programCounter.getPC()) << endl;
+    cout << "--------------------------------------------------------------------------------------------" << endl;
+    cout << "--------------------------------------------------------------------------------------------" << endl;
+    cout << "--------------------------------------------------------------------------------------------" << endl;
+    cout << "-----------------------||||||||||<<<<<<<" + to_string(counter) + ">>>>>>>|||||||||-----------------------------------" << endl;
+    cout << "--------------------------------------------------------------------------------------------" << endl;
+    cout << "--------------------------------------------------------------------------------------------" << endl;
+    cout << "--------------------------------------------------------------------------------------------" << endl;
   }
 }
-
 
 void Processor::
 fetch() { 
@@ -82,7 +94,7 @@ decode(){
   //      maintaining the number of bits. Send the result of this and 
   //      ALU1 to ALU2.
   signExtendedNum = signExt(currentInstruction.getBits(15, 0));
-  // cout << "Decode 8" << endl;
+  cout << "Decode 8" << endl;
   // cout << "alu 1 result: " << aluOne.getALUresult() << endl;
   // cout << "sl2 : " << shiftLeft2(signExtendedNum, true) << endl;
 
@@ -91,7 +103,7 @@ decode(){
 
   string addCode = "0010";
   aluTwo.operate(addCode, aluOne.getALUresult(), bin2hex(shiftLeft2(signExtendedNum, true)));   
-  // aluTwo.print();
+  aluTwo.print();
   cout << "Decode 9  Good through here" << endl;
                                                                               // true = maintain number of bits. 
 }
@@ -113,11 +125,10 @@ execute(){
   aluThree.setControl(control.getALUOp0(), control.getALUOp1(), currentInstruction.getFuncField());
  // aluThree.print(); 
   cout << "Execute 2" << endl;  
-//  cout << "aluMux: " << muxALUSrc.getResult() << endl;
-//  cout << "registerFile: " << registerFile.getReadData1() << endl;
-//  cout << "Alu 3 control: " << aluThree.getControl() << endl; 
-//  cout << "ALUControl from control: " << control.getALUControl() << endl;
-//  cout << "MUX2 result: " << muxALUSrc.getResult() << endl;
+  cout << "registerFile: " << registerFile.getReadData1() << endl;
+  cout << "Alu 3 control: " << aluThree.getControl() << endl; 
+  cout << "ALUControl from control: " << control.getALUControl() << endl;
+  cout << "MUX2 result: " << muxALUSrc.getResult() << endl;
   aluThree.operate(aluThree.getControl(), muxALUSrc.getResult(), registerFile.getReadData1());
   aluThree.print();
   cout << "Execute 3" << endl;
@@ -142,7 +153,9 @@ execute(){
   // muxJump.print();
   //   e. Send result of MUX4 to PC?
   cout << "Execute 5" << endl;
+  cout << "Printing Program counter before incrementing" << programCounter.getPC() << endl;
   programCounter.setPC(muxJump.getResult());
+  cout << "Printing Program counter after incrementing" << programCounter.getPC() << endl;
   cout << "Execute 6" << endl;  
 }
 
@@ -178,6 +191,7 @@ writeback(){
   //cout << "Printing the memData" <<InstructionData.at(aluThree.getALUresult()).getBits(32, 0) << endl; 
   //
   //MemoryData.at(aluThree.getALUresult()) << endl;
+  if(aluThree.getZero()) 
   muxMemToReg.operate(control.getMemToReg(), InstructionData.at(aluThree.getALUresult()).getBits(32, 0), aluThree.getALUresult());
   cout << "Writeback 1" << endl;
   
@@ -185,9 +199,11 @@ writeback(){
   //   a. Write data in register file gets the result of MUX3.
   ///@TODO need to have functionality in registerFile to check boolean before 
   //       writing to the write data reg
+  if(control.getRegWrite())
   registerFile.setWriteData(muxMemToReg.getResult());
   cout << "Writeback 2" << endl;
 
+  if(control.getRegWrite())
   registerContents[registerFile.getWriteReg()] = registerFile.getWriteData();
   cout << "Writeback 3" << endl;
 }
@@ -196,6 +212,12 @@ writeback(){
 void Processor::
 print(){
   ///@TODO Print instruction memory
+  std::cout << "*********** Instruction Memory ***********" << std::endl;
+  for (auto& element : InstructionData)
+  {
+    std::cout << element.first << " : " << bin2hex(element.second.getBinStr()) << std::endl << std::endl;
+  }
+
   std::cout << "*********** Data Memory ***********" << std::endl;
   for (std::pair<std::string, std::string> element : MemoryData)
   {
