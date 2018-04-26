@@ -18,45 +18,59 @@ operate(std::string c, std::string arg1, std::string arg2){
   inputOne = arg1;
   inputTwo = arg2;
 
+  setInputOne(arg1);
+  setInputTwo(arg2);
+
   // 00101110110001001111001000011001    input one
   // 00101110110001001111001000011001
 
   // 00110000010111110111111010100001    input two
   // 
 
-  std::cout << std::endl;
-  std::cout << std::endl;
+  // std::cout << std::endl;
+  // std::cout << std::endl;
   std::cout << "unit number :" << getUnitNum() << std::endl;
-  std::cout << "control :" << control << std::endl;
+  // std::cout << "control :" << control << std::endl;
   std::cout << "arg1 :" << inputOne << std::endl;
   std::cout << "arg2 :" << inputTwo << std::endl;
-  std::cout << std::endl;
-  std::cout << std::endl;
+  // std::cout << std::endl;
+  // std::cout << std::endl;
 
   if(control == add){
     // std::cout << "printing hex conversions: " << hex2bin(arg1) << " " << hex2bin(arg2) << std::endl;
     result = ALU::add(arg1, arg2);
   }
+  
+  ///SUBTRACT
   else if(control == subtract){
     // std::cout << arg1 << std::endl;
     arg2 = hex2bin(arg2);
-    // std::cout << arg2 << std::endl;
+     std::cout << arg2 << std::endl;
     arg2 = twosComp(arg2);
-    // std::cout << arg2 << std::endl;
+     std::cout << arg2 << std::endl;
     arg2 = bin2hex(arg2);
-    // std::cout << arg2 << std::endl;
+     std::cout << arg2 << std::endl;
     //arg2 = bin2hex(twosComp(hex2bin(arg2)));          // make arg2 a negative
     result = ALU::add(arg1, arg2);   // add arg1 and -arg2
-  } else if(control == slt){
+    std::cout << "RESULT" << result << std::endl;
+    if (stoi(hex2dec(result)) == 0) {setZero(true); std::cout << "ZERO" << std::endl;}
+  } 
+  
+  ///SLT
+  else if(control == slt){
     int one = stoi(hex2dec(arg1));  // convert arg1 to int for easy comparison
     int two = stoi(hex2dec(arg2));  // convert arg2 to int for easy comparison
     if(one < two)
-      result = "1";
-    else if ( one == two )
-      zero = true;
-    else
-      result = "0";
+      result = "0x00000001";
+    else{
+      zero = one==two;
+      result = "0x00000000";
+    }
   }
+
+
+  //11001111101000001000000101011111
+  //11001111101000001000000101011111
 
 
   // std::cout << "Control: " << control << std::endl << "Arg1: " << arg1 << std::endl << "Arg2: " << arg2 << std::endl;
@@ -71,9 +85,10 @@ Output: Hex
 */
 std::string ALU::
 add(std::string arg1, std::string arg2) {   
-
-  std::cout << "add arg1 " << arg1 << std::endl;
-  std::cout << "add arg2 " << arg2 << std::endl;
+  setInputOne(arg1);
+  setInputTwo(arg2);
+  // std::cout << "add arg1 " << arg1 << std::endl;
+  // std::cout << "add arg2 " << arg2 << std::endl;
 
   arg1 = hex2bin(arg1);
   arg2 = hex2bin(arg2);
@@ -82,8 +97,7 @@ add(std::string arg1, std::string arg2) {
   // std::cout << "POTATO SOOOOOUUUUUUPPPPPP " << getUnitNum() << std::endl;
   if(getUnitNum() != 3)
     setControl("0010");
-  setInputOne(arg1);
-  setInputTwo(arg2);
+  
 
   // std::cout << "add arg1(bin expected) " << arg1 << std::endl;
   // std::cout << "add arg2(bin expected) " << arg2 << std::endl;
@@ -129,7 +143,7 @@ add(std::string arg1, std::string arg2) {
   }
 
   // carry the 1 one last time if necessary by adding 1 to front of result string
-  if (carry)
+  if (carry && control == "0010")
     result = '1' + result;
   setALUresult(bin2hex(result));
   // std::cout << "Result: " << bin2hex(result) << std::endl;
@@ -207,7 +221,7 @@ add(std::string arg1, std::string arg2) {
 
     //  R-type
     //  11
-    if(ALUop0 && ALUop1){
+    if(!ALUop0 && ALUop1){
       //  add + addi
       if(func == "100000" || func == "000000")
         control ="0010";  // alu: add()

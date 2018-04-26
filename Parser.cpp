@@ -152,7 +152,9 @@ parseRegisterFile(vector<string>& r){
   for(int i = 0; i < 32; ++i){
     inputFile >> in;
     splitInd = in.find(':');
-    r.push_back(in.substr(splitInd + 1));
+    in = in.substr(splitInd+1);
+    if(!tolower(in[1]=='x')) in="0x"+in;
+    r.push_back(in);
     // cout << r[i] << endl;
   }
   // close the input stream
@@ -187,6 +189,8 @@ parseMemory(unordered_map<string, string>& mem){
       // ++count;
       // cout << "Number of things in memory: " << count << endl;
       // add it to the unordered_map containing memory
+      if(!tolower(address[1]=='x')) address="0x"+address;
+      if(!tolower(memory[1]=='x')) memory="0x"+memory;
       mem.emplace(address, memory);
     }
   }

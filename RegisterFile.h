@@ -7,13 +7,13 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 class RegisterFile : public Unit {
   private:
-    bool regWrite;                         ///< control line for writing to register
-    int writeReg;                          ///< number of write register
-    int readReg1;                          ///< number of read register 1
-    int readReg2;                          ///< number of read register 2
-    std::string readData1;                 ///< data from readReg1
-    std::string readData2;                 ///< data from readReg2
-    std::string writeData;                 ///< data to write
+    bool regWrite{false};                         ///< control line for writing to register
+    int writeReg{0};                          ///< number of write register
+    int readReg1{0};                          ///< number of read register 1
+    int readReg2{0};                          ///< number of read register 2
+    std::string readData1{""};                 ///< data from readReg1
+    std::string readData2{""};                 ///< data from readReg2
+    std::string writeData{""};                 ///< data to write
   public:
     //////////////////////////////////////////////////////////////////////////////////////
     /// @brief Constructor for register file object

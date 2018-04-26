@@ -20,7 +20,7 @@ parseInstruction(string inst){
 
   if(command == "add"){
     opcode = "000000";
-    func = "100100";
+    func = "100000";
     s >> arg1;
     rd = parseRegisterNumber(arg1);
     s >> arg2;
@@ -180,9 +180,6 @@ parseImmediate(string i){
 string 
 Instruction::
 getBits(int max, int min){
-    //cout << "max: " << max << "min: " << min << endl;
-    //cout << "index of substring: " << binStr.length() - max - 1 << endl;
-    //cout << binStr << endl;
     return binStr.substr(binStr.length() - max - 1, max - min + 1);
 }
 

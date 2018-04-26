@@ -4,6 +4,7 @@
 #include "Parser.h"
 #include "Processor.h"
 #include <iostream>
+#include "Utilities.h"
 
 using namespace std;
 

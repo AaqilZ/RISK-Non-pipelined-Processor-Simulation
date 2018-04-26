@@ -25,6 +25,7 @@ bin2hex(const string& bin){
   if(bin.length()==0)return bin;
   string localBin = bin;
   string hex = "0x";
+  while(localBin.length()%4!=0){localBin = "0"+localBin;}
   for(size_t i = 0; i < localBin.length() - 3; i+=4){ //This assumes that the bin 
     string dec = localBin.substr(i,4);     //numb is in groups of 4 bit
     dec = bin2dec(dec);
@@ -51,7 +52,7 @@ string
 hex2bin(const string& hex){
   string nonConstHex = hex;
   string bin = "";
-  if(hex[0]=='0' && tolower(hex[1])=='x'){nonConstHex = nonConstHex.erase(0,2);}
+  if(tolower(hex[1])=='x'){nonConstHex = nonConstHex.erase(0,2);}
   for(size_t i = 0; i < nonConstHex.length(); i++){
     switch(tolower(nonConstHex[i])){
       case '0': bin+="0000";
