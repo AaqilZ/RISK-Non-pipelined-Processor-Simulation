@@ -13,7 +13,7 @@ Processor() : Unit("Processor") {
 
 void Processor::
 process() {
-  print();
+  // print();
   int counter = 0;
   std::string initialPC =  programCounter.getPC();
   // cout << initialPC << endl;
@@ -27,7 +27,7 @@ process() {
     memory();
     writeback();
     counter++;
-
+    print();
 
     //muxJump.print();
 
@@ -266,7 +266,7 @@ writeback(){
 void Processor::
 print(){
   ///@TODO Print instruction memory
-  if(singleStep) currentInstruction.print();
+  InstructionData.at(programCounter.getPC()).print();
 
   if(writeToFile){
     if(printMemory){

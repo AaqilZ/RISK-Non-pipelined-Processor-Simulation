@@ -17,6 +17,7 @@ void
 Instruction::
 parseInstruction(string inst){
   mips = inst;
+  
   stringstream s(inst);
   // variables for args
   string command, arg1, arg2, arg3;
