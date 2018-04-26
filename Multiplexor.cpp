@@ -9,27 +9,27 @@ operate(bool control, std::string arg1, std::string arg2) {
   option1 = arg1;
   option2 = arg2;
   controlSignal = control;
-  if(getUnitNum() == 1){
+  // if(getUnitNum() == 1){
     // std::cout << "########################################## Unit number: " << getUnitNum() << std::endl;
     // std::cout << "##########################################arg1: " << option1 << std::endl;
     // std::cout << "arg2: " << option2 << std::endl;
     // std::cout << "control: " << controlSignal << std::endl;
-  }
+  // }
   
   // based on the control signal, return either arg1 or arg2
   if(control){
   	result = arg1;
-    if(getUnitNum() == 1){
-      std::cout << "control true result: " << result << std::endl;
-    }
+    // if(getUnitNum() == 1){
+      // std::cout << "control true result: " << result << std::endl;
+    // }
     // std::cout << "control true result: " << result << std::endl;
     return result;
   }
   else{
   	result = arg2;
-    if(getUnitNum() == 1){
-      std::cout << "control false result: " << result << std::endl;
-    }
+    // if(getUnitNum() == 1){
+      // std::cout << "control false result: " << result << std::endl;
+    // }
     // std::cout << "control false result: " << result << std::endl;
     return result;
   }

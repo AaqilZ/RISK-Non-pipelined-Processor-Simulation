@@ -29,10 +29,10 @@ operate(std::string c, std::string arg1, std::string arg2){
 
   // std::cout << std::endl;
   // std::cout << std::endl;
-  std::cout << "unit number :" << getUnitNum() << std::endl;
+  // std::cout << "unit number :" << getUnitNum() << std::endl;
   // std::cout << "control :" << control << std::endl;
-  std::cout << "arg1 :" << inputOne << std::endl;
-  std::cout << "arg2 :" << inputTwo << std::endl;
+  // std::cout << "arg1 :" << inputOne << std::endl;
+  // std::cout << "arg2 :" << inputTwo << std::endl;
   // std::cout << std::endl;
   // std::cout << std::endl;
 
@@ -45,14 +45,14 @@ operate(std::string c, std::string arg1, std::string arg2){
   else if(control == subtract){
     // std::cout << arg1 << std::endl;
     arg2 = hex2bin(arg2);
-     std::cout << arg2 << std::endl;
+     // std::cout << arg2 << std::endl;
     arg2 = twosComp(arg2);
-     std::cout << arg2 << std::endl;
+     // std::cout << arg2 << std::endl;
     arg2 = bin2hex(arg2);
-     std::cout << arg2 << std::endl;
+     // std::cout << arg2 << std::endl;
     //arg2 = bin2hex(twosComp(hex2bin(arg2)));          // make arg2 a negative
     result = ALU::add(arg1, arg2);   // add arg1 and -arg2
-    std::cout << "RESULT" << result << std::endl;
+    // std::cout << "RESULT" << result << std::endl;
     if (stoi(hex2dec(result)) == 0) {setZero(true); std::cout << "ZERO" << std::endl;}
   } 
   
