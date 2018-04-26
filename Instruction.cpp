@@ -67,12 +67,20 @@ parseInstruction(string inst){
     type = RTYPE;
   }
   else if (command == "lw"){
+    // cout << "########################## WE HERE BOOOOOOOIIIIII #############################" << endl;
     opcode = "100011";
     s >> arg1;
+    // cout << "////////////////////////// _1_ /////////////////////////////" << endl;
     rt = parseRegisterNumber(arg1);
+    // cout << "////////////////////////// _2_ /////////////////////////////" << endl;
     s >> arg2;
+    // cout << "////////////////////////// _3_ /////////////////////////////" << endl;
     imm = parseOffset(arg2);
+    // cout << "IMMEDIATE VALUE FOR LW: " << imm << endl;
+    // cout << "dec2bin(imm,16) VALUE FOR LW: " << dec2bin(imm,16) << endl;
+    // cout << "////////////////////////// _4_ /////////////////////////////" << endl;
     rs = parseRegisterNumber(arg2);
+    // cout << "////////////////////////// _5_ /////////////////////////////" << endl;
     type = ITYPE;
   }
   else if(command == "sw"){
@@ -100,7 +108,9 @@ parseInstruction(string inst){
     imm = parseImmediate(arg1);
     type = JTYPE;
   }
+  // cout << "FOUND U U LIL BITCH" << endl;
   computeBinaryEncoding();
+  // cout << "jk sry" << endl;
 }
 
 void

@@ -21,11 +21,17 @@ process() {
 // cout << "MAX PC: " <<(stoi(hex2dec(initialPC))+4*(int)InstructionData.size()) << endl;
   while(stoi(hex2dec(programCounter.getPC())) < (stoi(hex2dec(initialPC))+4*(int)InstructionData.size())){
     if(singleStep) cin.get();
+    // cout << "########################## 1 #############################" << endl;
     fetch();
+    // cout << "########################## 2 #############################" << endl;
     decode();
+    // cout << "########################## 3 #############################" << endl;
     execute();
+    // cout << "########################## 4 #############################" << endl;
     memory();
+    // cout << "########################## 5 #############################" << endl;
     writeback();
+    // cout << "########################## 6 #############################" << endl;
     counter++;
 
 
@@ -85,6 +91,8 @@ decode(){
   // cout << "Decode 4" << endl;
   //       - Read Register 1 gets instruction 25-21
   registerFile.setReadReg1(stoi(bin2dec(currentInstruction.getBits(25, 21))));
+  cout << "registerFile.getReadReg1(): " << registerFile.getReadReg1() << endl;
+  cout << "registerContents.at(registerFile.getReadReg1()): " << registerContents.at(registerFile.getReadReg1()) << endl;
   registerFile.setReadData1(registerContents.at(registerFile.getReadReg1()));
 
   // cout << "Decode 5" << endl;
@@ -218,10 +226,12 @@ writeback(){
   //cout << "Printing the memData" <<InstructionData.at(aluThree.getALUresult()).getBits(32, 0) << endl; 
   //
   //MemoryData.at(aluThree.getALUresult()) << endl;
+  cout << "////////////////////////// _1_ /////////////////////////////" << endl;
   if(control.getRegWrite()) {
     // cout << "THIS IF STATEMENT IS SATAN" << endl;
     // cout << aluThree.getALUresult() << endl;
     // cout << InstructionData.at((aluThree.getALUresult())).getBinStr() << endl;
+    cout << "////////////////////////// _2_ /////////////////////////////" << endl;
     if(control.getMemRead()){
       // cout << "Hello darkness my old friend" << endl;
       // cout << "clearly this is wtorng" << endl;
@@ -231,9 +241,18 @@ writeback(){
       // cout << registerContents.at(2) << endl;
 
       // cout << signExtendedNum<< endl;
+      cout << "////////////////////////// _3_ /////////////////////////////" << endl;
+      cout << "control.getMemToReg(): " << control.getMemToReg() << endl;
+      cout << "aluThree.getALUresult(): " << aluThree.getALUresult()<< endl;
+      aluThree.print();
+      registerFile.print();
+      cout << "MemoryData.at(aluThree.getALUresult()): " << MemoryData.at(aluThree.getALUresult()) << endl;
+      cout << "aluThree.getALUresult(): " << aluThree.getALUresult()<< endl;
       muxMemToReg.operate(control.getMemToReg(), MemoryData.at(aluThree.getALUresult()), aluThree.getALUresult());
+      cout << "////////////////////////// _3 and a half_ /////////////////////////////" << endl;
     }
     else {
+      cout << "////////////////////////// _4_ /////////////////////////////" << endl;
       muxMemToReg.operate(control.getMemToReg(), "the cake is a lie", aluThree.getALUresult());
     }
   
@@ -246,6 +265,7 @@ writeback(){
   //   a. Write data in register file gets the result of MUX3.
   ///@TODO need to have functionality in registerFile to check boolean before 
   //       writing to the write data reg
+  cout << "////////////////////////// _5_ /////////////////////////////" << endl;
   if(control.getRegWrite()){
     // if(registerFile.getWriteReg() == 3){
     //   cout << "HOLY FUCK NUGGETS THIS IS WHERE SHIT GOES DOWN!!!!!" << endl;
@@ -255,8 +275,9 @@ writeback(){
     // }
     // cout << "REGISTER NUMBER: " << registerFile.getWriteReg() << endl;
     // cout << "\t\t\tThis is what is wrong with life: ~setWrite - MUX RESULT = " << muxMemToReg.getResult() << endl;
-    
+    cout << "////////////////////////// _6_ /////////////////////////////" << endl;
     registerFile.setWriteData(muxMemToReg.getResult());
+    cout << "////////////////////////// _7_ /////////////////////////////" << endl;
     registerContents[registerFile.getWriteReg()] = registerFile.getWriteData();
     // cout << "Writeback 2" << endl;
   }

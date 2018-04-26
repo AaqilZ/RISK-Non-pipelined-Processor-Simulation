@@ -164,7 +164,7 @@ string
 dec2bin(int value, size_t length){
   string bin = dec2bin(value);
   // make sure signExt operates correctly
-  if(bin.length() < length - 1 && value > 0){
+  while(bin.length() < length){
     bin = "0" + bin;
   }
   return signExt(bin, length);

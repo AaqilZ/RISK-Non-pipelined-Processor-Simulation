@@ -90,15 +90,18 @@ parseInput(){
 void
 Parser::
 parseMIPS(unordered_map<string, Instruction>& mem){
+  // cout << "########################## 1 #############################" << endl;
   ifstream inputFile;
+  // cout << "########################## 2 #############################" << endl;
   inputFile.open(mipsFileName);
   // Confirm file was successfully opened
+  // cout << "########################## 3 #############################" << endl;
   if(!inputFile){
     // if not, throw error message and exit
     cerr << "Unable to open file '" << inputFileName << "'." << endl;
     exit(0);
   }
-
+  // cout << "########################## 4 #############################" << endl;
   // set variables to start
   string input;
   long address = 4194304;
@@ -117,15 +120,19 @@ parseMIPS(unordered_map<string, Instruction>& mem){
   //   }
   // }
   // cout << endl << endl;
-
+  // cout << "########################## 5 #############################" << endl;
   for( std::string input; getline(inputFile, input); ){
     // cout << input.length() << "  " << input << endl;
+    // cout << "########################## 6 #############################" << endl;
     if(input.length() > 0 && input.at(0) != '#' && input != "\t" && input != " "){
       //construct instruction object
+      // cout << "########################## 7 #############################" << endl;
       Instruction i;
       i.parseInstruction(input);
+      // cout << "########################## 8 #############################" << endl;
       // add it to map with address as key TODO this should add at hex address
       mem[dec2hex(address)] = i;
+      // cout << "########################## 9 #############################" << endl;
       // increment address
       address += 4;
     }
@@ -135,8 +142,9 @@ parseMIPS(unordered_map<string, Instruction>& mem){
   // for(auto iter = mem.begin(); iter != mem.end(); ++iter){
   //   cout << iter->first << " : " << iter->second.getOpcode() << endl;
   // }
-
+  // cout << "########################## 10 #############################" << endl;
   inputFile.close();
+  // cout << "########################## 11 #############################" << endl;
 }
 
 void
