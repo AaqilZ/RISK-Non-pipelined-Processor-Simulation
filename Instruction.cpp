@@ -16,6 +16,7 @@ extern std::ofstream o;
 void
 Instruction::
 parseInstruction(string inst){
+  mips = inst;
   stringstream s(inst);
   // variables for args
   string command, arg1, arg2, arg3;
@@ -266,6 +267,9 @@ void
 Instruction::
 print() {
   if(writeToFile){
-    o << binStr << endl;
+    o << "*********** INSTRUCTION ************" << endl;
+    o << mips << endl;
   }
+  cout << "*********** INSTRUCTION ************" << endl;
+  cout << mips << endl;
 }

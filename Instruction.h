@@ -10,6 +10,7 @@ enum type{RTYPE, ITYPE, JTYPE};
 //////////////////////////////////////////////////////////////////////////////////////////
 class Instruction {
   private:
+    std::string mips{""};                   ///< save the original mips instruction for printing
     std::string binStr{""};                 ///< binary string of instruction
     std::string opcode{""};                 ///< stores the opcode of the instruction
     int rs = -1;                        ///< stores the rs register
