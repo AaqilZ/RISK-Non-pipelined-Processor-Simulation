@@ -14,14 +14,14 @@ operate(bool control, std::string arg1, std::string arg2) {
 
   // based on the control signal, return either arg1 or arg2
   if(control){
-  	result = arg1;
+  	result = bin2hex(arg1);
     // std::cout << "control true result: " << result << std::endl;
-    return arg1;
+    return result;
   }
   else{
-  	result = arg2;
+  	result = bin2hex(arg2);
     // std::cout << "control false result: " << result << std::endl;
-    return arg2;
+    return result;
   }
 }
 

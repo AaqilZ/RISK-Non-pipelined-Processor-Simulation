@@ -21,6 +21,7 @@ bin2dec(const string& bin){
 
 string 
 bin2hex(const string& bin){
+  if(bin.find("x") != string::npos) return bin;
   if(bin.length()==0)return bin;
   string localBin = bin;
   string hex = "0x";

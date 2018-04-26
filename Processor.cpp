@@ -13,21 +13,24 @@ Processor() : Unit("Processor") {
 
 void Processor::
 process() {
+  print();
   int counter = 0;
   std::string initialPC =  programCounter.getPC();
   cout << initialPC << endl;
-  while(stoi(hex2dec(programCounter.getPC())) <= (stoi(hex2dec(initialPC))+4*(int)InstructionData.size())){
+cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Initial PC: " << stoi(hex2dec(programCounter.getPC())) << endl;
+cout << "MAX PC: " <<(stoi(hex2dec(initialPC))+4*(int)InstructionData.size()) << endl;
+  while(stoi(hex2dec(programCounter.getPC())) < (stoi(hex2dec(initialPC))+4*(int)InstructionData.size())){
     fetch();
     decode();
     execute();
     memory();
     writeback();
     counter++;
-    
+
 
     //muxJump.print();
 
-    
+
     cout << hex2dec(programCounter.getPC()) << endl;
     cout << "--------------------------------------------------------------------------------------------" << endl;
     cout << "--------------------------------------------------------------------------------------------" << endl;
@@ -37,12 +40,13 @@ process() {
     cout << "--------------------------------------------------------------------------------------------" << endl;
     cout << "--------------------------------------------------------------------------------------------" << endl;
   }
+  print();
 }
 
 void Processor::
 fetch() { 
   // cout << programCounter.getPC() << endl;
-  
+
   // for(auto iter = InstructionData.begin(); iter != InstructionData.end(); ++iter){
   //   cout << "\t\t" << iter->first << " : " << iter->second.getOpcode() << endl;
   // }
@@ -51,7 +55,7 @@ fetch() {
   std::string currentPC = programCounter.getPC();
   std::string four = "00000000000000000000000000000100";
   aluOne.add(currentPC, bin2hex(four));
-  
+
 }
 
 void Processor::
@@ -105,7 +109,7 @@ decode(){
   aluTwo.operate(addCode, aluOne.getALUresult(), bin2hex(shiftLeft2(signExtendedNum, true)));   
   aluTwo.print();
   cout << "Decode 9  Good through here" << endl;
-                                                                              // true = maintain number of bits. 
+  // true = maintain number of bits. 
 }
 
 void Processor::
@@ -117,13 +121,13 @@ execute(){
   muxALUSrc.operate(control.getALUSrc(), signExtendedNum, registerFile.getReadData2());
   //muxALUSrc.print();
   cout << "Execute 1" << endl;
-  
+
   //   b. ALU3 gets ALU Control and Read Data 1 and result of MUX2
   // cout << "getaluop0: " << control.getALUOp0() << endl;
   // cout << "getaluop1: " << control.getALUOp1() << endl;
   // cout << "Func field of current inst: " << currentInstruction.getFuncField() << endl;
   aluThree.setControl(control.getALUOp0(), control.getALUOp1(), currentInstruction.getFuncField());
- // aluThree.print(); 
+  // aluThree.print(); 
   cout << "Execute 2" << endl;  
   cout << "registerFile: " << registerFile.getReadData1() << endl;
   cout << "Alu 3 control: " << aluThree.getControl() << endl; 
@@ -135,17 +139,17 @@ execute(){
   //   c. send the result of ALU1 and ALU2 and (branch AND zero from ALU3) 
   //      to MUX5.
   muxBranch.operate((control.getBranch()&&aluThree.getZero()), aluTwo.getALUresult(), aluOne.getALUresult());
- // muxBranch.print();
+  // muxBranch.print();
   //   d. Shift left 2 takes instruction 25-0 and shifts 2(increasing 2 bits)
   //      and concatenate those 28 bits with the bits from ALU1. Send this(jump
   //      address) and result of MUX5 to MUX4.
   cout << "Execute 4" << endl;
 
-//  cout << "PC: " << programCounter.getPC() << endl;
-//  cout << "Current Instruction: " << currentInstruction.getBits(25, 0) << endl;
-//  cout << "Shifted Instruction: " << shiftLeft2(currentInstruction.getBits(25, 0), false) << endl;
-//  cout << (hex2bin(programCounter.getPC()).substr(0, 4)+shiftLeft2(currentInstruction.getBits(25, 0), false)) << endl;
-  
+  //  cout << "PC: " << programCounter.getPC() << endl;
+  //  cout << "Current Instruction: " << currentInstruction.getBits(25, 0) << endl;
+  //  cout << "Shifted Instruction: " << shiftLeft2(currentInstruction.getBits(25, 0), false) << endl;
+  //  cout << (hex2bin(programCounter.getPC()).substr(0, 4)+shiftLeft2(currentInstruction.getBits(25, 0), false)) << endl;
+
 
   std::string uglyString = bin2hex((hex2bin(programCounter.getPC()).substr(0, 4)+shiftLeft2(currentInstruction.getBits(25, 0), false)));
 
@@ -192,19 +196,19 @@ writeback(){
   //
   //MemoryData.at(aluThree.getALUresult()) << endl;
   if(aluThree.getZero()) 
-  muxMemToReg.operate(control.getMemToReg(), InstructionData.at(aluThree.getALUresult()).getBits(32, 0), aluThree.getALUresult());
+    muxMemToReg.operate(control.getMemToReg(), InstructionData.at(aluThree.getALUresult()).getBits(32, 0), aluThree.getALUresult());
   cout << "Writeback 1" << endl;
-  
+
 
   //   a. Write data in register file gets the result of MUX3.
   ///@TODO need to have functionality in registerFile to check boolean before 
   //       writing to the write data reg
   if(control.getRegWrite())
-  registerFile.setWriteData(muxMemToReg.getResult());
+    registerFile.setWriteData(muxMemToReg.getResult());
   cout << "Writeback 2" << endl;
 
   if(control.getRegWrite())
-  registerContents[registerFile.getWriteReg()] = registerFile.getWriteData();
+    registerContents[registerFile.getWriteReg()] = registerFile.getWriteData();
   cout << "Writeback 3" << endl;
 }
 
