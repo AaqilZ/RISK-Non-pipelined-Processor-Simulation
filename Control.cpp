@@ -32,7 +32,6 @@ Control::setControlLines(const Instruction& inst){
   }      
 
   // ADDI
-  /// @TODO Not sure about the memRead on this thing
   else if(op == "001000"){
     regDst=false; regWrite=true; ALUSrc=true; memWrite=false; memRead=false;  
     memToReg=false; ALUOp0=false; ALUOp1=false; branch=false; jump=false;

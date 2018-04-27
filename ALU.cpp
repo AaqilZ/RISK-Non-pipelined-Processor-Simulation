@@ -68,11 +68,6 @@ operate(std::string c, std::string arg1, std::string arg2){
     }
   }
 
-
-  //11001111101000001000000101011111
-  //11001111101000001000000101011111
-
-
   // std::cout << "Control: " << control << std::endl << "Arg1: " << arg1 << std::endl << "Arg2: " << arg2 << std::endl;
   ALUresult = result;
 
@@ -213,10 +208,7 @@ add(std::string arg1, std::string arg2) {
     //  beq
     //  01
     if(ALUop0 && !ALUop1){
-      // std::cout << "HEEEEEEEERRRRRRRRRRREEEEEEEEEEEEEEEEEE" << std::endl;
       control = "0110";   // alu: subtract()
-      // std::cout << "HEEEEEEEERRRRRRRRRRREEEEEEEEEEEEEEEEEE " << bin2hex(control) << std::endl;
-      // std::cout << "HEEEEEEEERRRRRRRRRRREEEEEEEEEEEEEEEEEE " << getUnitNum() << std::endl;
     }
 
     //  R-type

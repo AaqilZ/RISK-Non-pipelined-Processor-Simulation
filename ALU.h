@@ -62,7 +62,6 @@ class ALU : public OperationUnit {
     /// @param arg2 second argument for arithmetic
     //////////////////////////////////////////////////////////////////////////////////////
     virtual std::string operate(bool control, std::string arg1, std::string arg2) { 
-      std::cout << "The dog has more personality than the pig" << std::endl;
       return "hi alu three"; }
 
     //////////////////////////////////////////////////////////////////////////////////////
